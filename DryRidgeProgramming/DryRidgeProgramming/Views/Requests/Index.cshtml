@@ -1,0 +1,335 @@
+﻿@model IEnumerable<DryRidgeProgramming.Models.Request>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactTimes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AppType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UseCase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Audience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accounts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatingPrevious)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AllowFullAccess)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OsSupport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WebInterface)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OSUnknown)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViolateGoogleStore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViolateAppleStore)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StoreDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViolatePrivacy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViolateCopyright)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Devices)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Attributes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Layout)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReferenceLayoutF)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LayoutDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Features)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserProvidedFeatures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopFeaturesA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopFeaturesB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopFeaturesC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopFeaturesD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TopFeaturesE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScannerFeatures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OverallFunctionality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherFeatures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FurtherDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Progress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProgressShort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProgressLong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateUpdated)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactTimes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AppType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UseCase)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Audience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Accounts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatingPrevious)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AllowFullAccess)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OsSupport)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WebInterface)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OSUnknown)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViolateGoogleStore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViolateAppleStore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StoreDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViolatePrivacy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ViolateCopyright)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Devices)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attributes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Layout)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceLayoutF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LayoutDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Features)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserProvidedFeatures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopFeaturesA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopFeaturesB)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopFeaturesC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopFeaturesD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TopFeaturesE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScannerFeatures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OverallFunctionality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OtherFeatures)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FurtherDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Progress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgressShort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgressLong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RequestID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RequestID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RequestID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

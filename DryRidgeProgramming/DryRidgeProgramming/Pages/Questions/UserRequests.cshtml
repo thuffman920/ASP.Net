@@ -1,0 +1,40 @@
+﻿@page "{id:int?}/{requestId:int?}"
+@model DryRidgeProgramming.Pages.Questions.UserRequestsModel
+
+@{
+    ViewData["Title"] = "UserRequests";
+    Layout = "/Pages/Shared/_QuestionLayout.cshtml";
+}
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Request.RequestID" />
+    <input type="hidden" asp-for="Question.QuestionID" />
+    <div class="question" style="display:grid;">
+        <label asp-for=@(Model.RequestValues[Model.Question.QuestionID]) style="grid-row:1 / 2;grid-column:2 / 6;">@Model.Question.QuestionText</label>
+        @for (int i = 0; i < Model.Question.NumberOfOptions; i++)
+        {
+            <input type=@(Model.Question.Layout == 1 ? "radio" : "checkbox") name=@("q" + Model.Question.QuestionNumber) id=@("q" + Model.Question.QuestionNumber + "_" + i + "_A")
+                style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:3 / 4;display:inline-block;" />
+            <div style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:4 / 6;display:inline-block;">
+                <label asp-for=@(Model.RequestValues[Model.Question.QuestionID]) for=@("q" + Model.Question.QuestionNumber + "_" + i + "_A") style="display:inline-block;">@Model.OptionValues[i]</label>
+                <div class="quest_mark">?</div>
+            </div>
+        }
+    </div>
+    <div id="buttonInfo" style="display:grid;position:fixed;top:79%;width:100%;grid-template-rows:45px;grid-template-columns: 3fr 1fr 75px 1fr 75px 1fr 75px 1fr 1fr;">
+        @if (Model.Question.QuestionNumber == 1)
+        {
+            <input id="prevButton" type="submit" asp-page-handler="Previous" value="Previous" disabled="disabled" style="grid-column:2 / 3;border-radius:15px;"/>
+        } else {
+            <input id="prevButton" type="submit" asp-page-handler="Previous" value="Previous" style="grid-column:2 / 3;border-radius:15px;"/>
+        }
+        <input type="button" id="saveBtn" onclick="saveButton(this.id)" value="Save" style="grid-column:4 / 5;border-radius:15px;" />
+        <input type="button" id="saveExitBtn" onclick="saveButton(this.id)" style="grid-column:6 / 7;border-radius:15px;" value="Save and Exit" />
+        <input id="nextBtn" type="submit" asp-page-handler="Next" style="grid-column:8 / 9;border-radius:15px;" value="Next" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

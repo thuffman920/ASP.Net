@@ -1,0 +1,289 @@
+﻿@page
+@model SampleASPNetCoreApp.Pages.Students.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Student.StudentID" />
+            <div class="form-group">
+                <label asp-for="Student.FirstName" class="control-label"></label>
+                <input asp-for="Student.FirstName" class="form-control" />
+                <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.LastName" class="control-label"></label>
+                <input asp-for="Student.LastName" class="form-control" />
+                <span asp-validation-for="Student.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Age" class="control-label"></label>
+                <input asp-for="Student.Age" class="form-control" />
+                <span asp-validation-for="Student.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Gender" class="control-label"></label>
+                <select asp-for="Student.Gender" class="form-control">
+                    <option selected="selected" disabled="disabled">Select Gender...</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
+                <span asp-validation-for="Student.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Grade" class="control-label"></label>
+                <input asp-for="Student.Grade" class="form-control" />
+                <span asp-validation-for="Student.Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassA" class="control-label"></label>
+                <select asp-for="Student.ClassA" class="form-control">
+                    @if (Model.Student.ClassA == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassA != null && (int)(Model.Student.ClassA) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassB" class="control-label"></label>
+                <select asp-for="Student.ClassB" class="form-control">
+                    @if (Model.Student.ClassB == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassB != null && (int)(Model.Student.ClassB) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassC" class="control-label"></label>
+                <select asp-for="Student.ClassC" class="form-control">
+                    @if (Model.Student.ClassC == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassC != null && (int)(Model.Student.ClassC) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassD" class="control-label"></label>
+                <select asp-for="Student.ClassD" class="form-control">
+                    @if (Model.Student.ClassD == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassD != null && (int)(Model.Student.ClassD) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassE" class="control-label"></label>
+                <select asp-for="Student.ClassE" class="form-control">
+                    @if (Model.Student.ClassE == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassE != null && (int)(Model.Student.ClassE) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassF" class="control-label"></label>
+                <select asp-for="Student.ClassF" class="form-control">
+                    @if (Model.Student.ClassF == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassF != null && (int)(Model.Student.ClassF) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassF" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassG" class="control-label"></label>
+                <select asp-for="Student.ClassG" class="form-control">
+                    @if (Model.Student.ClassG == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassG != null && (int)(Model.Student.ClassG) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassH" class="control-label"></label>
+                <select asp-for="Student.ClassH" class="form-control">
+                    @if (Model.Student.ClassH == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassH != null && (int)(Model.Student.ClassH) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassH" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassI" class="control-label"></label>
+                <select asp-for="Student.ClassI" class="form-control">
+                    @if (Model.Student.ClassI == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassI != null && (int)(Model.Student.ClassI) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.ClassJ" class="control-label"></label>
+                <select asp-for="Student.ClassJ" class="form-control">
+                    @if (Model.Student.ClassJ == null)
+                    {
+                        <option value="-1" selected="selected">Select class...</option>
+                    } else
+                    {
+                        <option value="-1">Select class...</option>
+                    }
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        @if (Model.Student.ClassJ != null && (int)(Model.Student.ClassJ) == nextClass.ClassroomID)
+                        {
+                            <option value="@nextClass.ClassroomID" selected="selected">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        } else
+                        {
+                            <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Student.ClassJ" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

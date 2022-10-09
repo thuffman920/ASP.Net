@@ -1,0 +1,466 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+</head>
+<body>
+    <div id="header" class="header_Req" style="font-size:20px;display:grid;grid-template-columns: 10% repeat(5, 1fr) 50px 10%;vertical-align:bottom;">
+        <div id="header1" class=@ViewData["headClassA1"] style="grid-column:2 / 3;">
+            <label id="headerText1"  class=@ViewData["headClassA2"]>Company Information</label>
+            <progress id="headerProg1" min="0" max="8" value="@ViewData["headA1"]" style="display:@ViewData["headA2"]";"></progress>
+        </div>
+        <div id="header2" class="@ViewData["headClassB1"]" style="grid-column:3 / 4;">
+            <label id="headerText2"  class="@ViewData["headClassB2"]">Applications Structure</label>
+            <progress id="headerProg2" min="0" max="10" value="@ViewData["headB1"]" style="display:@ViewData["headB2"];"></progress>
+        </div>
+        <div id="header3" class="@ViewData["headClassC1"]" style="grid-column:4 / 5;">
+            <label id="headerText3"  class="@ViewData["headClassC2"]">Application Specifics</label>
+            <progress id="headerProg3" min="0" max="8" value="@ViewData["headC1"]" style="display:@ViewData["headC2"];"></progress>
+        </div>
+        <div id="header4" class="@ViewData["headClassD1"]" style="grid-column:5 / 6;">
+            <label id="headerText4"  class="@ViewData["headClassD2"]">Application Functionality</label>
+            <progress id="headerProg4" min="0" max="9" value="@ViewData["headD1"]" style="display:@ViewData["headD2"];"></progress>
+        </div>
+        <div id="header5" class="@ViewData["headClassE1"]" style="grid-column:6 / 7;">
+            <label id="headerText5" class="@ViewData["headClassE2"]">Personal Information</label>
+            <progress id="headerProg5" min="0" max="4" value="@ViewData["headE1"]" style="display:@ViewData["headE2"];"></progress>
+        </div>
+        <div id="outlineAccPic" onmouseover="dropdownAcc(this.id)" onmouseout="dropdownAcc('')" style="height:35px;width:50px;grid-column:7 / 8;align-self:end;padding:20px 10px 50px ;display:grid;grid-template-columns:1fr;grid-template-rows:1fr;">
+            <label id="ddArrow" onmouseover="dropdownAcc(this.id)" style="color:#f26722;align-self:center;justify-self:center;grid-row:1 / 2;grid-column:1 / 2;"></label>
+        </div>
+    </div>
+    <div id="myAcc" onmouseover="dropdownAcc(this.id)" onmouseout="dropdownAcc('')" style="position:absolute;width:275px;display:none;grid-template-rows:20px repeat(4, 1fr) 20px;grid-template-columns:20px 48px 1fr 20px;background-color:#f26722;color:white;z-index:10;">
+        <div onmouseover="dropdownAcc(this.id)" id="accPic" style="grid-row:2 / 4;grid-column:2 / 3;height:40px;width:40px;border-radius:50%;overflow:hidden;align-self:center;border:1px solid black;">
+            <div onmouseover="dropdownAcc(event)" id="accHead" style="position:relative;height:14px;width:14px;border-radius:50%;top:8px;left:13.5px;"></div>
+            <div onmouseover="dropdownAcc(event)" id="accBody" style="position:relative;height:40px;width:40px;border-radius:50%;top:10px;left:1px;"></div>
+        </div>
+        <div id="userDD" onmouseover="dropdownAcc(this.id)" style="display:none;grid-row:2 / 6;grid-column:3 / 4;grid-template-rows:1fr 1fr 1fr 1fr;grid-template-columns:1fr 2fr;">
+            <label onmouseover="dropdownAcc(this.id)" id="siUserLbl" type="text" style="grid-row:1 / 2;grid-column:1 / 2;background-color:inherit;color:white;">User:</label>
+            <label onmouseover="dropdownAcc(this.id)" id="signInUser" type="text" style="grid-row:1 / 2;grid-column:2 / 3;background-color:inherit;color:white;"></label>
+            <label onmouseover="dropdownAcc(this.id)" id="siUIDLbl" type="text" style="background-color:inherit;color:white;grid-row:2 / 3;grid-column:1 / 2;">UID:</label>
+            <label onmouseover="dropdownAcc(this.id)" id="signInUID" type="text" style="background-color:inherit;color:white;grid-row:2 / 3;grid-column:2 / 3;"></label>
+            <label onmouseover="dropdownAcc(this.id)" id="siTicketLbl" type="text" style="grid-row:3 / 4;grid-column:1 / 2;background-color:inherit;color:white;">Ticket:</label>
+            <label onmouseover="dropdownAcc(this.id)" id="signInTicket" type="text" style="grid-row:3 / 4;grid-column:2 / 3;background-color:inherit;color:white;"></label>
+            <label onmouseover="dropdownAcc(this.id)" id="siKeyLbl" type="text" style="background-color:inherit;color:white;grid-row:4 / 5;grid-column:1 / 2;">Key:</label>
+            <label onmouseover="dropdownAcc(this.id)" id="signInKey" type="text" style="background-color:inherit;color:white;grid-row:4 / 5;grid-column:2 / 3;"></label>
+        </div>
+        <hr id="signInBar" onmouseover="dropdownAcc(this.id)" style="grid-row:4 / 5;grid-column:2 / 4;background-color:white;width:100%;height:1px;padding:0;margin:auto 0;" />
+        <!--<input onmouseover="dropdownAcc(this.id)" id="signInAcc" type="button" value="Log In" style="display:none;text-align:start;grid-row:5 / 6;grid-column:2 / 4;background-color:#f26722;border:1px solid transparent;color:white;" />
+        <input onmouseover="dropdownAcc(this.id)" id="signInStat" type="button" onclick="saveButton()" value="Log In" style="display:none;text-align:start;grid-row:6 / 7;grid-column:2 / 4;background-color:#f26722;border:1px solid transparent;color:white;" />-->
+        <input onmouseover="dropdownAcc(this.id)" id="signInLoad" type="button" value="Load Request" style="cursor:pointer;display:none;text-align:start;grid-row:5 / 6;grid-column:2 / 4;background-color:inherit;border:1px solid #f26722;color:white;padding:0;margin:0;" />
+        <input onmouseover="dropdownAcc(this.id)" id="signInAcc" type="button" value="Manage Account" style="cursor:pointer;display:none;text-align:start;grid-row:6 / 7;grid-column:2 / 4;background-color:inherit;border:1px solid #f26722;color:white;padding:0;margin:0;" />
+        <input onmouseover="dropdownAcc(this.id)" id="signInStat" type="button" value="Sign In" onclick="saveButton(this.id)" style="cursor:pointer;text-align:start;grid-row:5 / 6;grid-column:2 / 4;background-color:inherit;border:1px solid #f26722;color:white;padding:0;margin:0;" />
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div id="modal" style="width:100%;height:100%;position:fixed;top:0;left:0;z-index:1;background-color:rgba(0,0,0,0.4);display:none;">
+        <div id="popup" style="display:grid;position:fixed;border:2px solid #f26722;background-color:white;grid-template-columns:20px 1fr 25px 20px;grid-template-rows:20px 35px 1fr;overflow:hidden;">
+            <label id="titlePopup" style="color:#f26722;grid-column:2 / 3;grid-row:2 / 3;font-size:1.5em;"></label>
+            <input type="button" id="closeModal" onclick="closePopup()" style="color:#f26722;background-color:white;border:1px solid white;grid-row:2 / 3;grid-column:3 / 4;font-size:1.5em;align-self:start;" value="X" />
+            <div id="allPopup" style="display:none;grid-row:3 / 4;grid-column:2 / 4;border:1px solid black;height:92.5%;overflow:auto;">
+                <div id="sidemenuAll" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a onclick="loadAllDetails()">What We Do?</a>
+                    <a onclick="loadAllApp()">Make an Appointment</a>
+                    <a onclick="loadAllAbout()">About Us</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div id="allPUMain" style="width:100%;height:900px;">
+                    <div id="allPUHeader" style="width:100%;background-color:lightgreen;font-size:1.5em;vertical-align:central;">
+                        <h3 style="text-align:center;padding:40px 0 15px 0;margin:0 35%;color:purple;">The Happy Dog Groomers</h3>
+                        <div id="menuOpt" style="display:grid;width:100%;grid-template-columns:repeat(5, 1fr);padding:20px 0;">
+                            <div class="menu" onclick="menuPopup(this)" style="padding:0;grid-column:5 / 6;align-items:end;margin:0 10px 0 auto;">
+                                <div class="m1"></div>
+                                <div class="m2"></div>
+                                <div class="m3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sidemainPopup" style="display:none;">
+
+            </div>
+            <div id="mainfootPopup" style="display:none;">
+
+            </div>
+            <div id="headmainPopup" style="display:none;grid-row:3 / 4;grid-column:2 / 4;border:1px solid black;height:92.5%;overflow:auto;"">
+                <div id="headmainPUMain" style="width:100%;height:900px;">
+                    <div id="headMainPUHeader" style="width:100%;background-color:lightgreen;font-size:1.5em;vertical-align:central;">
+                        <h3 style="text-align:center;padding:40px 0 15px 0;margin:0 35%;color:purple;">The Happy Dog Groomers</h3>
+                        <div id="headmainMenuOpt" style="display:grid;width:100%;grid-template-columns:repeat(5, 1fr);padding:20px 0;">
+                            <a id="puHeadmainD" href="loadAllDetails()" style="color:purple;text-decoration:none;grid-column:2 / 3;display:none;align-items:center;">What We Do?</a>
+                            <a id="puHeadmainApp" href="loadAllApp()" style="color:purple;text-decoration:none;grid-column:3 / 4;display:none;align-items:center;">Appointment</a>
+                            <a id="puHeadmainAbout" href="loadAllAbout()" style="color:purple;text-decoration:none;grid-column:4 / 5;display:none;align-items:center;">About Us</a>
+                            <div class="menu" onclick="menuPopup(this)" style="padding:0;grid-column:5 / 6;align-items:end;margin:0 10px 0 auto;">
+                                <div class="m1"></div>
+                                <div class="m2"></div>
+                                <div class="m3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="responsePopup" style="display:none;">
+
+            </div>
+            <div id="horizscrollPopup" style="display:none;">
+
+            </div>
+            <div id="1stgamePopup" style="display:none;">
+
+            </div>
+            <div id="mapgamePopup" style="display:none;">
+
+            </div>
+            <div id="consolePopup" style="display:none;">
+
+            </div>
+            <div id="savePopup" style="grid-row:3 / 4;grid-column:2 / 4;display:none;height:92.5%;overflow:auto;">
+                <div id="loginAccount" style="display:grid;grid-template-rows:25% 15px repeat(6, 1fr);grid-template-columns:20% 1fr 20%;color:#f26722;row-gap:10px;">
+                    <label id="errL" style="grid-row:2 / 3;grid-column:2 / 3;font-size:14px;color:red;visibility:collapse;"></label>
+                    <label style="grid-row:3 / 4;grid-column:2 / 3;font-size:18px;align-self:center;">Username</label>
+                    <input id="userL" type="text" onkeyup="keySignInCheck(event, this.id)" style="grid-row:4 / 5;grid-column:2 / 3;font-size:16px;border-radius:10px;padding:10px;border:1px solid #f26722;" />
+                    <label style="grid-row:5 / 6;grid-column:2 / 3;font-size:18px;align-self:center;">Password</label>
+                    <div style="grid-row:6 / 7;grid-column:2 / 3;display:grid;grid-template-columns:4fr 45px;">
+                        <input id="passL" type="password" onkeyup="seeThisPass(event, this.id)" style="grid-row:1 / 2;grid-column:1 / 3;border-radius:10px;border:1px solid #f26722;padding:10px;font-size:16px;" />
+                        <input id="vwpassL" type="button" onclick="viewPass(this.id)" style="display:none;font-size:1.5em;grid-row:1 / 2;grid-column:2 / 3;background-color:transparent;padding:0;margin:0;border:1px solid transparent;" />
+                    </div>
+                    <div style="grid-row:7 / 9;grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr 1fr;">
+                        <input id="loginBtn" type="button" onclick="signIn(this.id)" value="Log In" style="justify-self:end;grid-row:1 / 2;grid-column:3 / 4;font-size:20px;border-radius:10px;background-color:#f26722;border:1px solid #f26722;color:white;margin:auto 0;padding:10px 15px;" />
+                        <input type="button" onclick="createAcc('createAccount', this.id)" style="justify-self:start;cursor:pointer;grid-row:1 / 2;grid-column:1 / 2;color:blue;text-decoration:underline;background-color:white;border:1px solid white;" value="Create Account" />
+                    </div>
+                </div>
+                <div id="createAccount" style="display:none;grid-template-rows:15px repeat(12, 2fr) 3fr;grid-template-columns:20% 1fr 20%;color:#f26722;">
+                    <label id="errC" style="grid-row:1 / 2;grid-column:2 / 3;font-size:14px;color:red;visibility:collapse;"></label>
+                    <div style="grid-row:2 / 3;grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr;">
+                        <label style="grid-column:1 / 2;font-size:18px;align-self:center;margin-left:2.5px;">First Name</label>
+                        <label style="grid-column:2 / 3;font-size:18px;align-self:center;margin-left:2.5px;">Last Name</label>
+                    </div>
+                    <div style="grid-row:3 / 4;grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr;">
+                        <input id="firstN" type="text" onkeyup="keySignInCheck(event, this.id)" style="grid-column:1 / 2;border-radius:10px;font-size:16px;margin-right:2.5px;border:1px solid #f26722;padding:10px;" />
+                        <input id="lastN" type="text" onkeyup="keySignInCheck(event, this.id)" style="grid-column:2 / 3;border-radius:10px;font-size:16px;margin-left:2.5px;border:1px solid #f26722;padding:10px;" />
+                    </div>
+                    <label style="grid-row:4 / 5;grid-column:2 / 3;font-size:18px;align-self:center;">Email</label>
+                    <input id="emailC" type="text" onkeyup="keySignInCheck(event, this.id)" style="grid-row:5 / 6;grid-column:2 / 3;border-radius:10px;font-size:16px;border:1px solid #f26722;padding:10px;" />
+                    <label style="grid-row:6 / 7;grid-column:2 / 3;font-size:18px;align-self:center;">Phone Number</label>
+                    <input id="phoneC" onkeypress="formatPhone(event)" onkeyup="keySignInCheck(event, this.id)" type="text" style="grid-row:7 / 8;grid-column:2 / 3;border-radius:10px;font-size:16px;border:1px solid #f26722;padding:10px;" placeholder="(___) ___-____ x_____" />
+                    <label style="grid-row:8 / 9;grid-column:2 / 3;font-size:18px;align-self:center;">Username</label>
+                    <input id="userC" type="text" onkeyup="keySignInCheck(event, this.id)" style="grid-row:9 / 10;grid-column:2 / 3;border-radius:10px;font-size:16px;border:1px solid #f26722;padding:10px;" />
+                    <label style="grid-row:10 / 11;grid-column:2 / 3;font-size:18px;align-self:center;">Password</label>
+                    <div style="grid-row:11 / 12;grid-column:2 / 3;display:grid;grid-template-columns:1fr 45px 80px;">
+                        <input id="createGen" type="button" onclick="createAcc('genPass', this.id)" style="grid-row:1 / 2;grid-column:3 / 4;border:1px solid #f26722;background-color:#f26722;border-radius:10px;color:white;margin-left:2px;" value="Generate" />
+                        <input id="passC" type="password" onkeyup="seeThisPass(event, this.id)" style="grid-row:1 / 2;grid-column:1 / 3;font-size:16px;border-radius:10px;border:1px solid #f26722;padding:10px;" />
+                        <input id="vwpassC" type="button" onclick="viewPass(this.id)" style="display:none;font-size:1.5em;grid-row:1 / 2;grid-column:2 / 3;background-color:transparent;padding:0;margin:0;border:1px solid transparent;" />
+                    </div>
+                    <label style="grid-row:12 / 13;grid-column:2 / 3;font-size:18px;align-self:center;">Confirm Password</label>
+                    <div style="grid-row:13 / 14;grid-column:2 / 3;display:grid;grid-template-columns:1fr 45px;">
+                        <input id="passR" type="password" onkeyup="seeThisPass(event, this.id)" style="grid-row:1 / 2;grid-column:1 / 3;border-radius:10px;font-size:16px;border:1px solid #f26722;padding:10px;" />
+                        <input id="vwpassR" type="button" onclick="viewPass(this.id)" style="display:none;font-size:1.5em;grid-row:1 / 2;grid-column:2 / 3;background-color:transparent;padding:0;margin:0;border:1px solid transparent;" />
+                    </div>
+                    <div style="grid-row:14 / 15;grid-column:2 / 3;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr">
+                        <input id="createBtn" type="button" value="Create" onclick="signIn(this.id)" style="grid-row:1 / 3;grid-column:3 / 4;font-size:20px;border-radius:10px;background-color:#f26722;border:1px solid #f26722;color:white;padding:10px 15px;justify-self:end;margin:auto 0;" />
+                        <input type="button" onclick="createAcc('loginAccount', this.id)" style="align-self:center;justify-self:start;cursor:pointer;grid-row:1 / 2;grid-column:1 / 2;color:blue;text-decoration:underline;background-color:white;border:1px solid white;margin-top:2px;" value="Log In" />
+                        <input type="button" onclick="createAcc('tiredAccount', this.id)" style="align-self:center;justify-self:start;cursor:pointer;grid-row:2 / 3;grid-column:1 / 2;color:blue;text-decoration:underline;background-color:white;border:1px solid white;" value="Tired of creating accounts" />
+                    </div>
+                </div>
+                <div id="tiredAccount" style="display:none;grid-template-rows:repeat(12, 1fr);grid-template-columns:20% 1fr 20%;color:#f26722;">
+                    <label id="errT" style="grid-row:1 / 2;grid-column:2 / 3;font-size:14px;color:red;visibility:collapse;"></label>
+                    <label style="grid-row:2 / 3;grid-column:2 / 3;font-size:18px;align-self:center;">Email</label>
+                    <input id="emailT" type="text"  onkeyup="keySignInCheck(event, this.id)" style="grid-row:3 / 4;grid-column:2 / 3;border-radius:10px;font-size:16px;padding:10px;border:1px solid #f26722;" />
+                    <label style="grid-row:4 / 5;grid-column:2 / 3;font-size:18px;align-self:center;">Password</label>
+                    <div style="grid-row:5 / 6;grid-column:2 / 3;display:grid;grid-template-columns:5fr 45px 80px;">
+                        <input id="tiredGen" type="button" onclick="createAcc('genPass', this.id)" style="grid-row:1 / 2;grid-column:3 / 4;border:1px solid #f26722;background-color:#f26722;border-radius:10px;color:white;margin-left:2px;" value="Generate" />
+                        <input id="passT" type="password" onkeyup="seeThisPass(event, this.id)" style="grid-row:1 / 2;grid-column:1 / 3;border-radius:10px;border:1px solid #f26722;font-size:16px;padding:10px;" />
+                        <input id="vwpassT" type="button" onclick="viewPass(this.id)" style="display:none;font-size:1.5em;grid-row:1 / 2;grid-column:2 / 3;background-color:transparent;padding:0;margin:0;border:1px solid transparent;" />
+                    </div>
+                    <label style="grid-row:6 / 7;grid-column:2 / 3;font-size:18px;align-self:center;">Ticket Number</label>
+                    <label id="ticketNo" style="grid-row:7 / 8;grid-column:2 / 3;border-radius:10px;font-size:1.5em;margin-left:15px;"></label>
+                    <label style="grid-row:8 / 9;grid-column:2 / 3;font-size:18px;align-self:center;">Public Key</label>
+                    <label id="pubKey" style="grid-row:9 / 10;grid-column:2 / 3;border-radius:10px;font-size:1.5em;margin-left:15px;"></label>
+                    <div style="grid-row:10 / 12;grid-column:2 / 3;display:grid;grid-template-columns:1fr 150px;grid-template-rows:repeat(3, 1fr);">
+                        <input id="createAltBtn" type="button" onclick="signIn(this.id)" value="Create" style="grid-row:1 / 3;grid-column:2 / 3;font-size:20px;border-radius:10px;background-color:#f26722;border:1px solid #f26722;color:white;padding:10px 20px;height:auto;width:auto;" />
+                        <input type="button" onclick="createAcc('loginAccount', this.id)" style="cursor:pointer;text-align:left;grid-row:1 / 2;grid-column:1 / 2;color:blue;text-decoration:underline;background-color:white;border:1px solid white;" value="Log In" />
+                        <input type="button" onclick="createAcc('createAccount', this.id)" style="cursor:pointer;text-align:left;grid-row:2 / 3;grid-column:1 / 2;color:blue;text-decoration:underline;background-color:white;border:1px solid white;" value="Rather create an account" />
+                    </div>
+                </div>
+                <div id="genPass" style="display:none;grid-template-rows:2fr 4fr 2fr repeat(3, 1fr);grid-template-columns:20% 1fr 20%;font-size:1.5em;">
+                    <div id="cols" style="grid-row:1 / 2;grid-column:2 / 3;display:grid;grid-template-rows:repeat(2, 1fr);align-items:center;padding:8px;">
+                        <label id="color" style="grid-row:1 / 2;color:#f26722;">Pick a color:</label>
+                        <select name="colors" id="colorList" style="grid-row:2 / 3;color:#f26722;border:1px solid #f26722;padding:5px;border-radius:10px;font-size:16px;">
+                            <option value="" disabled="disabled" selected="selected" style="color:#f26722;">Select a color</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="brown">Brown</option>
+                            <option value="coral">Coral</option>
+                            <option value="crimson">Crimson</option>
+                            <option value="cyan">Cyan</option>
+                            <option value="fuchsia">Fuchsia</option>
+                            <option value="green">Green</option>
+                            <option value="grey">Grey</option>
+                            <option value="indigo">Indigo</option>
+                            <option value="lavender">Lavender</option>
+                            <option value="lime">Lime</option>
+                            <option value="magenta">Magenta</option>
+                            <option value="mahogany">Mahogany</option>
+                            <option value="maroon">Maroon</option>
+                            <option value="navy">Navy</option>
+                            <option value="olive">Olive</option>
+                            <option value="orange">Orange</option>
+                            <option value="orchid">Orchid</option>
+                            <option value="pink">Pink</option>
+                            <option value="purple">Purple</option>
+                            <option value="red">Red</option>
+                            <option value="salmon">Salmon</option>
+                            <option value="silver">Silver</option>
+                            <option value="tan">Tan</option>
+                            <option value="teal">Teal</option>
+                            <option value="turquoise">Turquoise</option>
+                            <option value="violet">Violet</option>
+                            <option value="white">White</option>
+                            <option value="yellow">Yellow</option>
+                        </select>
+                    </div>
+                    <div id="nums" style="grid-row:2 / 3;grid-column:2 / 3;color:#f26722;display:grid;align-items:center;grid-template-rows:1fr 3fr;padding:8px;">
+                        <label id="numPicker" style="grid-row:1 / 2;">Pick any number(s).</label>
+                        <div style="grid-row:2 / 3;display:inline-grid;grid-template-columns:repeat(5,1fr 1fr 15px);align-items:center;grid-template-rows:repeat(2, 1fr);font-size:1.5em;">
+                            <input type="checkbox" name="genPassNum" id="numb0" style="grid-row:1 / 2;grid-column:1 / 2;justify-self:center;" />
+                            <label for="numb0" style="grid-row:1 / 2;grid-column:2 / 3;">0</label>
+                            <input type="checkbox" name="genPassNum" id="numb1" style="grid-row:1 / 2;grid-column:4 / 5;justify-self:center;" />
+                            <label for="numb1" style="grid-row:1 / 2;grid-column:5 / 6;">1</label>
+                            <input type="checkbox" name="genPassNum" id="numb2" style="grid-row:1 / 2;grid-column:7 / 8;justify-self:center;" />
+                            <label for="numb2" style="grid-row:1 / 2;grid-column:8 / 9;">2</label>
+                            <input type="checkbox" name="genPassNum" id="numb3" style="grid-row:1 / 2;grid-column:10 / 11;justify-self:center;" />
+                            <label for="numb3" style="grid-row:1 / 2;grid-column:11 / 12;">3</label>
+                            <input type="checkbox" name="genPassNum" id="numb4" style="grid-row:1 / 2;grid-column:13 / 14;justify-self:center;" />
+                            <label for="numb4" style="grid-row:1 / 2;grid-column:14 / 15;">4</label>
+                            <input type="checkbox" name="genPassNum" id="numb5" style="grid-row:2 / 3;grid-column:1 / 2;justify-self:center;" />
+                            <label for="numb5" style="grid-row:2 / 3;grid-column:2 / 3;">5</label>
+                            <input type="checkbox" name="genPassNum" id="numb6" style="grid-row:2 / 3;grid-column:4 / 5;justify-self:center;" />
+                            <label for="numb6" style="grid-row:2 / 3;grid-column:5 / 6;">6</label>
+                            <input type="checkbox" name="genPassNum" id="numb7" style="grid-row:2 / 3;grid-column:7 / 8;justify-self:center;" />
+                            <label for="numb7" style="grid-row:2 / 3;grid-column:8 / 9;">7</label>
+                            <input type="checkbox" name="genPassNum" id="numb8" style="grid-row:2 / 3;grid-column:10 / 11;justify-self:center;" />
+                            <label for="numb8" style="grid-row:2 / 3;grid-column:11 / 12;">8</label>
+                            <input type="checkbox" name="genPassNum" id="numb9" style="grid-row:2 / 3;grid-column:13 / 14;justify-self:center;" />
+                            <label for="numb9" style="grid-row:2 / 3;grid-column:14 / 15;">9</label>
+                        </div>
+                    </div>
+                    <div id="anims" style="grid-row:3 / 4;grid-column:2 / 3;display:grid;padding:8px;align-items:center;grid-template-rows:1fr 1fr;color:#f26722;">
+                        <label id="animal" style="grid-row:1 / 2;">Pick an animal:</label>
+                        <select name="animals" id="animList" style="grid-row:2 / 3;border:1px solid #f26722;color:#f26722;padding:5px;border-radius:10px;font-size:16px;">
+                            <option value="" disabled="disabled" selected="selected" style="color:#f26722;">Select an animal</option>
+                            <option value="aardvark">Aardvark</option>
+                            <option value="alligator">Alligator</option>
+                            <option value="alpaca">Alpaca</option>
+                            <option value="anteater">Anteater</option>
+                            <option value="antelope">Antelope</option>
+                            <option value="badger">Badger</option>
+                            <option value="bat">Bat</option>
+                            <option value="bear">Bear</option>
+                            <option value="beaver">Beaver</option>
+                            <option value="bird">Bird</option>
+                            <option value="bobcat">Bobcat</option>
+                            <option value="buffallo">Buffalo</option>
+                            <option value="bull">Bull</option>
+                            <option value="camel">Camel</option>
+                            <option value="cat">Cat</option>
+                            <option value="chameleon">Chameleon</option>
+                            <option value="cheetah">Cheetah</option>
+                            <option value="cougar">Cougar</option>
+                            <option value="cow">Cow</option>
+                            <option value="coyote">Coyote</option>
+                            <option value="crab">Crab</option>
+                            <option value="chicken">Chicken</option>
+                            <option value="chipmunk">Chipmunk</option>
+                            <option value="crocodile">Crocodile</option>
+                            <option value="deer">Deer</option>
+                            <option value="dog">Dog</option>
+                            <option value="donkey">Donkey</option>
+                            <option value="Duck">Duck</option>
+                            <option value="eagle">Eagle</option>
+                            <option value="eel">Eel</option>
+                            <option value="elephant">Elephant</option>
+                            <option value="elk">Elk</option>
+                            <option value="emu">Emu</option>
+                            <option value="falcon">Falcon</option>
+                            <option value="ferret">Ferret</option>
+                            <option value="fish">Fish</option>
+                            <option value="fox">Fox</option>
+                            <option value="frog">Frog</option>
+                            <option value="giraffe">Giraffe</option>
+                            <option value="goat">Goat</option>
+                            <option value="goose">Goose</option>
+                            <option value="gopher">Gopher</option>
+                            <option value="gorilla">Gorilla</option>
+                            <option value="hamster">Hamster</option>
+                            <option value="hawk">Hawk</option>
+                            <option value="hedgehog">Hedgehog</option>
+                            <option value="hippopotamus">Hippopotamus</option>
+                            <option value="horse">Horse</option>
+                            <option value="hyena">Hyena</option>
+                            <option value="ibex">Ibex</option>
+                            <option value="ibis">Ibis</option>
+                            <option value="impala">Impala</option>
+                            <option value="jackal">Jackal</option>
+                            <option value="jaguar">Jaguar</option>
+                            <option value="kangaroo">Kangaroo</option>
+                            <option value="koala">Koala</option>
+                            <option value="leopard">Leopard</option>
+                            <option value="leech">Leech</option>
+                            <option value="lion">Lion</option>
+                            <option value="lizard">Lizard</option>
+                            <option value="llama">Llama</option>
+                            <option value="lobster">Lobster</option>
+                            <option value="lynx">Lynx</option>
+                            <option value="marten">Marten</option>
+                            <option value="mink">Mink</option>
+                            <option value="mole">Mole</option>
+                            <option value="mongoose">Mongoose</option>
+                            <option value="monkey">Monkey</option>
+                            <option value="moose">Moose</option>
+                            <option value="muskrat">Muskrat</option>
+                            <option value="octopus">Octopus</option>
+                            <option value="ostrich">Ostrich</option>
+                            <option value="otter">Otter</option>
+                            <option value="owl">Owl</option>
+                            <option value="oyster">Oyster</option>
+                            <option value="panda">Panda</option>
+                            <option value="panther">Panther</option>
+                            <option value="peacock">Peacock</option>
+                            <option value="pelican">Pelican</option>
+                            <option value="penguin">Penguin</option>
+                            <option value="pig">Pig</option>
+                            <option value="porcupine">Porcupine</option>
+                            <option value="puma">Puma</option>
+                            <option value="rabbit">Rabbit</option>
+                            <option value="raccoon">Raccoon</option>
+                            <option value="rhinoceros">Rhinoceros</option>
+                            <option value="seal">Seal</option>
+                            <option value="shark">Shark</option>
+                            <option value="sheep">Sheep</option>
+                            <option value="snake">Snake</option>
+                            <option value="squirrel">Squirrel</option>
+                            <option value="swan">Swan</option>
+                            <option value="tiger">Tiger</option>
+                            <option value="turtle">Turtle</option>
+                            <option value="wolf">Wolf</option>
+                            <option value="wolverine">Wolverine</option>
+                            <option value="woodpecker">Woodpecker</option>
+                            <option value="whale">Whale</option>
+                            <option value="yak">Yak</option>
+                            <option value="zebra">Zebra</option>
+                        </select>
+                    </div>
+                    <div style="grid-row:4 / 5;grid-column:2 / 3;display:grid;grid-template-columns:1fr 40px;">
+                        <label id="generatedPass" style="grid-column:1 / 2;width:90%"></label>
+                        <input id="copyBtn" type="button" onclick="createAcc('', this.id)" style="grid-column:2 / 3;padding:0;margin:0;background-color:white;border:1px solid white;justify-self:end;display:none;color:#f26722;" value="&#xf0c5;" title="Back and Load" />
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(4, 1fr);grid-row:5 / 6;grid-column:2 / 3;">
+                        <input type="button" value="Generate" onclick="generatePassword()" style="grid-row:1 / 2;grid-column:4 / 5;color:white;background-color:#f26722;border:1px solid #f26722;border-radius:10px;font-size:20px;" />
+                        <input id="backGen" type="button" value="< Back" onclick="createAcc('', this.id)" style="justify-self:start;grid-row:1 / 2;grid-column:1 / 2;text-decoration:underline;color:blue;background-color:white;border:1px solid white;" />
+                    </div>
+                </div>
+                <div id="loadRequest" style="display:none;grid-template-rows:89% 9%;grid-template-columns:5% 1fr 5%;row-gap:5px;overflow:hidden;height:100%;">
+                    <div style="grid-row:1 / 2;grid-column:2 / 3;overflow:auto;height:100%;text-align:center;">
+                        <table id="reqTable" style="border-collapse:collapse;width:100%;overflow-wrap:normal;font-size:18px;">
+                            <tr style="background-color:rgba(242, 103, 34, 0.5);">
+                                <th style="padding:5px;"></th>
+                                <th style="padding:5px;">Ticket No</th>
+                                <th style="padding:5px;">Date</th>
+                                <th style="padding:5px;">Application Type</th>
+                                <th style="padding:5px;">Contact Name</th>
+                                <th style="padding:5px;">Company Name</th>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn1" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">1</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn2" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">2</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn4" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">4</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn8" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">8</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn10" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">10</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn15" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">15</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                            <tr style="background-color:white;">
+                                <td style="padding:5px;"><input id="tn19" type="checkbox" name="req" onchange="requests()" style="margin:auto;" /></td>
+                                <td style="padding:5px;">19</td>
+                                <td style="padding:5px;">1/19/2022</td>
+                                <td style="padding:5px;">Website</td>
+                                <td style="padding:5px;">Tyler Huffman</td>
+                                <td style="padding:5px;">Buncombe County Schools</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="grid-row:2 / 3;grid-column:1 / 4;display:grid;grid-template-columns:5fr 125px 45px 125px 45px 125px 1fr;width:100%;">
+                        <input type="button" id="delRequest" value="Delete" onclick="deleteReq()" style="cursor:pointer;grid-column:2 / 3;background-color:#f26722;color:white;border-radius:15px;border:1px solid #f26722;" />
+                        <input type="button" id="saveToRequest" value="Save To" disabled="disabled" style="grid-column:4 / 5;border-radius:15px;" />
+                        <input type="button" id="saveAsNew" value="Save As New" style="cursor:pointer;grid-column:6 / 7;background-color:#f26722;color:white;border-radius:15px;border:1px solid #f26722;" />
+                    </div>
+                </div>
+                <div id="saveExRes" style="display:none;grid-template-rows:45% repeat(3, 1fr);grid-template-columns:20% 1fr 1fr 1fr 20%;color:#f26722;row-gap:25px;">
+                    <label id="ruSure" style="grid-row:2 / 3;grid-column:2 / 5;color:#f26722;font-size:20px;text-align:center;">Are you sure that you want to exit?</label>
+                    <input type="button" id="yes_exit" onclick="exitBtn()" value="Yes" style="grid-row:3 / 4;grid-column:3 / 4;color:white;background-color:#f26722;font-size:16px;padding:10px;border-radius:15px;border:1px solid #f26722;" />
+                    <input type="button" id="no_exit" onclick="closePopup()" value="No" style="grid-row:4 / 5;grid-column:3 / 4;color:white;background-color:#f26722;font-size:16px;padding:10px;border-radius:15px;border:1px solid #f26722;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="myMsgBox" id="popupMsgBox">
+        <label id="msgBoxLbl" style="font-size:20px;color:#f26722;grid-row:1 / 2;grid-column:1 / 2;align-self:center;justify-self:center"></label>
+    </div>
+    <div class="footer_Req">
+        <div style="text-align:center;vertical-align:middle;color:#f26722;padding:20px;">
+            &copy; 2022 - DryRidgeProgramming - <a asp-area="" asp-page="~/Pages/Privacy" style="color:#D0A084;text-decoration:none;">Privacy</a>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

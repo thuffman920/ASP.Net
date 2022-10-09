@@ -1,0 +1,74 @@
+﻿@page
+@model DryRidgeProgramming.Pages.Questions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="./CreateQuestion">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].QuestionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].Layout)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].QuestionText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Question[0].NumberOfOptions)
+            </th>
+            <th>
+                Options
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Question) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Layout)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfOptions)
+            </td>
+            <td>
+                [
+                @if (item.NumberOfOptions > 0)
+                {
+                    string[] values = new string[] {item.Option1, item.Option2, item.Option3, item.Option4, item.Option5,
+                        item.Option6, item.Option7, item.Option8, item.Option9, item.Option10,
+                        item.Option11, item.Option12, item.Option13, item.Option14, item.Option15,
+                        item.Option16, item.Option17, item.Option18, item.Option19, item.Option20,
+                        item.Option21, item.Option22, item.Option23, item.Option24, item.Option25,
+                        item.Option26, item.Option27, item.Option28, item.Option29, item.Option30 };
+                    @for (int i = 0; i < item.NumberOfOptions - 1; i++) {
+                        @(values[i] + ",")
+                    }
+                    @values[(item.NumberOfOptions != null ? (int)(item.NumberOfOptions) - 1 : 0)]
+                }
+                ]
+            </td>
+            <td>
+                <a asp-page="./EditQuestion" asp-route-id="@item.QuestionID">Edit</a> |
+                <a asp-page="./QuestionDetails" asp-route-id="@item.QuestionID">Details</a> |
+                <a asp-page="./DeleteQuestion" asp-route-id="@item.QuestionID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

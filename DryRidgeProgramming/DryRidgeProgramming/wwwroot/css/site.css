@@ -1,0 +1,394 @@
+::-webkit-scrollbar {
+    width: 15px;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px white;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #f26722;
+    border-radius: 10px;
+}
+:root {
+    --form-control-color: #f26722;
+}
+.footer_Req {
+    height: 5%;
+    bottom: 0;
+}
+.footer_Req, .header_Req {
+    background-color: blue;
+    width: 100%;
+    position: fixed;
+    left: 0;
+}
+.header_Req {
+    height: 150px;
+    top: 0;
+}
+.question {
+    position: fixed;
+    top: 25%;
+    font-size: 20px;
+    row-gap: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    grid-template-rows: 2fr repeat(14, 1fr);
+    align-items: center;
+    grid-template-columns: 15% 50px 35px 1fr 1fr 15%;
+    width: 99.5%;
+    height: 53.5%;
+    overflow-y: auto;
+}
+.quest_mark {
+    font-size: 0.5em;
+    vertical-align: top;
+    margin-left: -6px;
+    display: inline-block;
+    cursor: help;
+}
+.defHeaderTab {
+    width: 100%;
+    text-align: center;
+}
+.headerTab {
+    text-align: center;
+    background-color: white;
+    border-top: 5px #f26722 solid;
+    border-right: 5px solid #f26722;
+    border-left: 5px solid #f26722;
+    border-bottom: 5px solid white;
+}
+.defHeaderText {
+    display: block;
+    padding: 10px 10px 2px 10px;
+    color: red;
+}
+.headerText {
+    display: block;
+    padding: 10px 10px 0 10px;
+    color: red;
+}
+.offsetDefHeaderText {
+    display: block;
+    padding: 10px 55px 2px 55px;
+    color: red;
+}
+.offsetHeaderText {
+    display: block;
+    padding: 10px 55px 0 55px;
+    color: red;
+}
+progress {
+    width: 97.5%;
+    height: 15%;
+    border-color: white;
+}
+progress::-webkit-progress-value {
+    background: red;
+}
+progress::-webkit-progress-bar {
+    background: white;
+}
+@media only screen and (max-width: 1674px) {
+    .headerTab {
+        margin-top: 40px;
+    }
+
+    .defHeaderTab {
+        margin-top: 46px;
+    }
+}
+@media only screen and (min-width: 1675px) {
+    .headerTab {
+        margin-top: 70px;
+    }
+
+    .defHeaderTab {
+        margin-top: 76px;
+    }
+}
+#closeModal:hover {
+    cursor: pointer;
+}
+.menu {
+    display: inline-block;
+    cursor: pointer;
+}
+.m1, .m2, .m3 {
+    width: 35px;
+    height: 5px;
+    background-color: #333;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+.change .m1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+.change .m2 {
+    opacity: 0;
+}
+.change .m3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px);
+    transform: rotate(45deg) translate(-8px, -8px);
+}
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+input[type="checkbox"], input[type="radio"] {
+    -webkit-appearance: none;
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    border: 2px solid blue;
+    display: grid;
+    place-content: center;
+}
+input[type="checkbox"] {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 0.15em;
+}
+input[type="checkbox"]::before {
+    clip-path: polygon(50% 0%, 61.8% 38.2%, 100% 38.2%, 69.1% 61.8%, 80.9% 100%, 50% 76.39%, 19.1% 100%, 30.9% 61.8%, 0% 38.2%, 38.2% 38.2%, 50% 0%);
+    width: 0.5em;
+    height: 0.5em;
+}
+input[type="checkbox"]::before, input[type="radio"]::before {
+    content: "";
+    transform: scale(0);
+    transition: 75ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--form-control-color);
+}
+input[type="radio"]::before {
+    width: 0.35em;
+    height: 0.35em;
+}
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+input[type="radio"] {
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 50%;
+}
+input[type="radio"]:checked::before {
+    transform: scale(1);
+    border-radius: 50%;
+}
+.myMsgBox {
+    opacity: 0;
+    display: grid;
+    position: absolute;
+    height: 100px;
+    width: 475px;
+    top: 20px;
+    left: 40%;
+    background-color: white;
+    border-radius: 25px;
+    border: 2px solid red;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr;
+}
+.msgBoxAnimation {
+    animation: 4s flyInMsg 1;
+}
+@keyframes flyInMsg {
+    0% {
+        top: 10px;
+        opacity: 0;
+    }
+
+    12.5% {
+        top: 75px;
+        opacity: 1;
+    }
+
+    87.5% {
+        top: 75px;
+        opacity: 1;
+    }
+
+    100% {
+        top: 10px;
+        opacity: 0;
+    }
+}
+table th, table td {
+    padding: 0;
+    border: 1px solid black;
+}
+#saveToRequest:disabled, #prevButton:disabled, #saveBtn:disabled, #saveExitBtn:disabled, #nextBtn:disabled {
+    background-color: rgba(242, 103, 34, 0.1);
+    color: lightgrey;
+    border: 1px solid rgba(242, 103, 34, 0.25);
+}
+#saveToRequest:enabled, #prevButton:enabled, #saveBtn:enabled, #saveExitBtn:enabled, #nextBtn:enabled {
+    background-color: #f26722;
+    color: white;
+    border: 1px solid #f26722;
+    cursor: pointer;
+}
+.top_hole, .right_hole, .bottom_hole, .left_hole, .top_knob, .right_knob, .bottom_knob, .left_knob {
+    border: 1px solid #000;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    position: relative;
+}
+.top_hole, .right_hole, .bottom_hole, .left_hole {
+    background-color: lightgrey;
+    position: relative;
+    z-index: 8;
+}
+.top_knob, .right_knob, .bottom_knob, .left_knob {
+    background-color: #fff;
+    position: relative;
+    z-index: 10;
+}
+.top_hole {
+    border-top: 1px solid transparent;
+}
+.top_knob {
+    border-bottom: 1px solid #fff;
+}
+.bottom_knob {
+    border-top: 1px solid #fff;
+}
+.bottom_hole {
+    border-bottom: 1px solid transparent;
+}
+.left_hole {
+    border-left: 1px solid transparent;
+}
+.right_knob {
+    border-left: 1px solid #fff;
+}
+.right_hole {
+    border-right: 1px solid transparent;
+}
+.left_knob {
+    border-right: 1px solid #fff;
+}
+.puzzle {
+    /*For smaller screen, BPB*/
+    height: 81px;
+    width: 81px;
+    /*
+        height:78.9px;
+        width:78.9px;
+    */
+    border: 1px solid #000;
+    background-color: #fff;
+}
+.missing_puzzle {
+    /*For smaller screen, BPB*/
+    height: 81px;
+    width: 81px;
+    /*
+        height: 78.9px;
+        width: 78.9px;
+    */
+    background-color: lightgrey;
+    border: 1px solid #000;
+}
+.partial_puzzle_L, .partial_puzzle_R {
+    /*For smaller screen, BPB*/
+    height: 81px;
+    width: 51px;
+    /*
+        height: 78.9px;
+        width: 48.9px;
+    */
+}
+.partial_puzzle_L, .partial_puzzle_R, .partial_puzzle_B {
+    border-top: 1px solid #000;
+}
+.partial_puzzle_T {
+    border-top: 1px solid #fff;
+    margin-top: 30px;
+}
+.partial_puzzle_L, .partial_puzzle_R, .partial_puzzle_T {
+    border-bottom: 1px solid #000;
+}
+.partial_puzzle_B {
+    border-bottom: 1px solid #fff;
+}
+.partial_puzzle_B, .partial_puzzle_T, .partial_puzzle_L {
+    border-right: 1px solid #000;
+}
+.partial_puzzle_R {
+    border-right: 1px solid #fff;
+}
+.partial_puzzle_B, .partial_puzzle_T, .partial_puzzle_R {
+    border-left: 1px solid #000;
+}
+.partial_puzzle_L {
+    border-left: 1px solid #fff;
+}
+.partial_puzzle_B, .partial_puzzle_T {
+    /*For smaller screen, BPB*/
+    height: 51px;
+    width: 81px;
+    /*
+        height: 48.9px;
+        width: 78.9px;
+    */
+}
+.partial_puzzle_BLC, .partial_puzzle_BRC, .partial_puzzle_TLC, .partial_puzzle_TRC {
+    /*For smaller screen, BPB*/
+    height: 51px;
+    width: 51px;
+    /*
+        height: 48.9px;
+        width: 48.9px;
+    */
+}
+.partial_puzzle_BLC, .partial_puzzle_BRC {
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #fff;
+}
+.partial_puzzle_TLC, .partial_puzzle_TRC {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #000;
+    margin-top: 30px;
+}
+.partial_puzzle_BLC, .partial_puzzle_TLC {
+    border-right: 1px solid #000;
+    border-left: 1px solid #fff;
+}
+.partial_puzzle_TRC, .partial_puzzle_BRC {
+    border-right: 1px solid #fff;
+    border-left: 1px solid #000;
+}

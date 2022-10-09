@@ -1,0 +1,64 @@
+﻿@page
+@model DryRidgeProgramming.Pages.Questions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Question</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.QuestionNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.QuestionNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.Layout)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.Layout)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.QuestionText)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.QuestionText)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question.NumberOfOptions)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question.NumberOfOptions)
+        </dd>
+        <dt class="col-sm-2">
+            Options
+        </dt>
+        <dd class="col-sm-10">
+            [
+            @if (Model.Question.NumberOfOptions > 0)
+            {
+                string[] values = new string[] {Model.Question.Option1, Model.Question.Option2, Model.Question.Option3, Model.Question.Option4, Model.Question.Option5,
+                        Model.Question.Option6, Model.Question.Option7, Model.Question.Option8, Model.Question.Option9, Model.Question.Option10,
+                        Model.Question.Option11, Model.Question.Option12, Model.Question.Option13, Model.Question.Option14, Model.Question.Option15,
+                        Model.Question.Option16, Model.Question.Option17, Model.Question.Option18, Model.Question.Option19, Model.Question.Option20,
+                        Model.Question.Option21, Model.Question.Option22, Model.Question.Option23, Model.Question.Option24, Model.Question.Option25,
+                        Model.Question.Option26, Model.Question.Option27, Model.Question.Option28, Model.Question.Option29, Model.Question.Option30 };
+                @for (int i = 0; i < Model.Question.NumberOfOptions - 1; i++)
+                {
+                    @(values[i] + ",")
+                }
+                @values[(Model.Question.NumberOfOptions != null ? (int)(Model.Question.NumberOfOptions) - 1 : 0)]
+            }
+            ]
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Question.QuestionID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

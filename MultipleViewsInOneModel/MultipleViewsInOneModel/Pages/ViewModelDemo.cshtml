@@ -1,0 +1,31 @@
+﻿@page
+@model MultipleViewsInOneModel.Models.ViewModelDemo
+@{
+    ViewBag.Title = "ViewModelDemo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ 
+<h2>ViewModelDemo</h2>
+<select>
+    @*Iterating Employee ViewModel *@
+    @foreach (var item in Model.AllEmployees)
+    {        
+        <option>@item.EmpName</option>           
+    } 
+</select>         
+ 
+<select>
+    @*Iterating Courses ViewModel *@
+    @foreach (var item in Model.AllCourses)
+    {        
+        <option>@item.CourseName</option>           
+    } 
+</select>  
+ 
+<select>
+    @*Iterating Department ViewModel *@
+    @foreach (var item in Model.AllDepartments)
+    {        
+        <option>@item.DepName</option>           
+    } 
+</select> 

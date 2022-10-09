@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9281f419-d48d-43a0-83f1-7e11e0d9c43a": {
+      "ProjectGuid": "9281f419-d48d-43a0-83f1-7e11e0d9c43a",
+      "DisplayName": "RazorPagesMovie",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}

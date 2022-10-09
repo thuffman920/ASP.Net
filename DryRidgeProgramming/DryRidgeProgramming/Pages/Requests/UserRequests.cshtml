@@ -1,0 +1,112 @@
+﻿@page "{id:int?}"
+@model DryRidgeProgramming.Pages.Requests.UserRequestsModel
+
+@{
+    ViewData["Title"] = "Request";
+    int[] headerValues = { 8, 10, 8, 9, 4 };
+    int count = 0;
+    int index = -1;
+    for (var i = 0; i < headerValues.Length; i++) {
+        if (count + headerValues[i] > Model.QuestionID - 1) {
+            index = i;
+            ViewData["head" + (char)(65 + i) + "1"] = Model.QuestionID - 1 - count;
+            ViewData["head" + (char)(65 + i) + "2"] = "block";
+            break;
+        }
+        ViewData["head" + (char)(65 + i) + "1"] = headerValues[i];
+        ViewData["head" + (char)(65 + i) + "2"] = "block";
+        count += headerValues[i];
+    }
+    for (int i = index + 1; i < headerValues.Length; i++)
+        ViewData["head" + (char)(65 + i) + "2"] = "none";
+    for (int i = 0; i < 5; i++) {
+        ViewData["headClass" + (char)(i + 65) + "1"] = (index == i ? "h" : "defH") + "eaderTab";
+        ViewData["headClass" + (char)(i + 65) + "2"] = (index == i ? "h" : "defH") + "eaderText";
+    }
+    Layout = "~/Pages/Shared/_QuestionLayout.cshtml";
+}
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Request.RequestID" />
+    <input type="hidden" asp-for="Question.QuestionNumber" />
+    <input type="hidden" asp-for="User.UserID" />
+    <input type="hidden" asp-for="DummyQuestions"/>
+    <input type="hidden" asp-for="Description"/>
+    <div class="question" style="display:grid;">
+        <label asp-for="@Model.Question.QuestionText" style="grid-row:1 / 2;grid-column:2 / 6;">@Model.Question.QuestionText</label>
+        @if (Model.Question.Layout == 1 || Model.Question.Layout == 2) {
+            @for (int i = 0; i < Model.Question.NumberOfOptions; i++)
+            {
+                <input type=@(Model.Question.Layout == 1 ? "radio" : "checkbox") value="@(Model.Question.NumberOfOptions == 2 && (Model.OptionValues[i] == "Yes" || Model.OptionValues[i] == "No") ? (Model.OptionValues[i] == "Yes" ? "true" : "false") : Model.OptionValues[i])" 
+                    name=@Model.RequestValues[Model.QuestionID - 1,0] id=@("q" + Model.QuestionID + "_" + i + "_c")
+                    style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:3 / 4;" />
+                <div style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:4 / 6;display:inline-block;">
+                    <label for=@("q" + Model.QuestionID + "_" + i + "_c") style="display:inline-block;">@Model.OptionValues[i]</label>
+                    <div class="quest_mark">?</div>
+                </div>
+            }
+            @if (Model.Question.Layout == 2)
+            {
+                <input type="checkbox" text="other" name=@("q" + Model.Question.QuestionNumber)  id=@("q" + Model.Question.QuestionNumber + "o_c") onclick="enableTextBox(this.id)" style="grid-row:@((Model.Question.NumberOfOptions + 2) + " / " + (Model.Question.NumberOfOptions + 3));grid-column:3 / 4;" />
+                <div style="grid-row:@((Model.Question.NumberOfOptions + 2) + " / " + (Model.Question.NumberOfOptions + 3));grid-column:4 / 6;">
+                    <label id=@("q" + Model.Question.QuestionNumber + "o_tA") for=@("q" + Model.Question.QuestionNumber + "o_c") title="" style="display:inline-block;user-select:none;">Other...</label>
+                    <input id=@("q" + Model.Question.QuestionNumber + "o_tB") type="text" style="width:250px;font-size:inherit;font-family:inherit;display:inline-block;" disabled="disabled" />
+                </div>
+            }
+        } else if (Model.Question.Layout == 3)
+        {
+            @for (int i = 0; i < Model.Question.NumberOfOptions; i++) {
+                <input type=@(Model.Question.Layout == 1 ? "radio" : "checkbox") name=@("q" + Model.Question.QuestionNumber) id=@("q" + Model.Question.QuestionNumber + "_" + i + "_A")
+                    style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:3 / 4;" />
+                <div style="grid-row:@((i + 2) + " / " + (i + 3));grid-column:4 / 6;display:inline-block;">
+                    <label asp-for=@(Model.RequestValues[Model.Question.QuestionID,0]) for=@("q" + Model.Question.QuestionNumber + "_" + i + "_A") style="display:inline-block;">@Model.OptionValues[i]</label>
+                    <div class="quest_mark">?</div>
+                </div>
+            }
+        } else if (Model.Question.Layout == 4)
+        {
+            <input type="text" style="width:80%;font-size:inherit;font-family:inherit;grid-row:2 / 3;grid-column:2 / 6;margin-left:10%" />
+        } else if (Model.Question.Layout == 5)
+        {
+            <textarea style="grid-row:2 / 9;grid-column:2 / 6;height:350px"></textarea>
+        } else if (Model.Question.Layout == 6)
+        {
+        
+        }
+    </div>
+    <div id="buttonInfo" style="display:grid;position:fixed;top:79%;width:100%;grid-template-rows:45px;grid-template-columns:3fr 1fr 75px 1fr 75px 1fr 75px 1fr 1fr;">
+        @if (Model.QuestionID == 1) {
+            <input id="prevButton" type="submit" asp-page-handler="Previous" value="Previous" disabled="disabled" style="grid-column:2 / 3;border-radius:15px;"/>
+        } else {
+            <input id="prevButton" type="submit" asp-page-handler="Previous" value="Previous" style="grid-column:2 / 3;border-radius:15px;"/>
+        }
+        <input type="button" id="saveBtn" onclick="saveButton(this.id)" value="Save" style="grid-column:4 / 5;border-radius:15px;" />
+        <input type="button" id="saveExitBtn" onclick="saveButton(this.id)" style="grid-column:6 / 7;border-radius:15px;" value="Save and Exit" />
+        <input id="nextBtn" type="submit" asp-page-handler="Next" style="grid-column:8 / 9;border-radius:15px;" value="Next" />
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        var isDropped = false;
+        var prevLoc = '';
+        var saveBtnType = "";
+        document.getElementById("ddArrow").innerText = "\u25BC";
+        var colorIs = [["rgb(176, 30, 0)", "rgb(234, 143, 131)"], ["rgb(0, 107, 100)", "rgb(174, 204, 203)"], ["rgb(28, 115, 76)", "rgb(200, 224, 171)"], ["rgb(246, 207, 87)", "rgb(255, 252, 180)"],
+            ["rgb(245, 128, 31)", "rgb(255, 187, 124)"], ["rgb(73, 15, 82)", "rgb(176, 159, 202)"], ["rgb(0, 0, 0)", "rgb(175, 175, 175)"], ["rgb(98, 60, 31)", "rgb(194, 164, 135)"],
+            ["rgb(223, 136, 183)", "rgb(231, 209, 221)"], ["rgb(59, 117, 119)", "rgb(123, 194, 188)"], ["rgb(213, 50, 25)", "rgb(255, 145, 100)"], ["rgb(84, 62, 122)", "rgb(134, 134, 175)"],
+            ["rgb(11, 168, 230)", "rgb(211, 225, 235)"], ["rgb(98, 98, 61)", "rgb(194, 194, 154)"]];
+        var randIBack = randI(0, colorIs.length);
+        document.getElementById("accPic").style.backgroundColor = colorIs[randIBack][0];
+        document.getElementById("accHead").style.backgroundColor = colorIs[randIBack][1];
+        document.getElementById("accBody").style.backgroundColor = colorIs[randIBack][1];
+        $(window).on("resize", function () {
+            resizeDetection();
+        });
+        $(window).on("load", function () {
+            resizeDetection();
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

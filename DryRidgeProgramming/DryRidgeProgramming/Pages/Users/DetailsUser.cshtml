@@ -1,0 +1,70 @@
+﻿@page "{id:int?}"
+@model DryRidgeProgramming.Pages.Users.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+    Controllers.DRPConstructor drpC = new Controllers.DRPConstructor();
+    drpC.SetSaltLine(Html.DisplayFor(model => model.User.SValue).ToString());
+    drpC.SetNowTime(Model.User.LastModifiedDate);
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @drpC.RebuildUser(Model.User.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.NumOfTickets)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.NumOfTickets)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.NumOfRequests)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.User.NumOfRequests)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.AccountProfileColorBack)
+        </dt>
+        <dd class="col-sm-10">
+            <div style="width:40px;height:15px;background-color:@Html.DisplayFor(model => model.User.AccountProfileColorBack);"></div>
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.User.AccountProfileColorFront)
+        </dt>
+        <dd class="col-sm-10">
+            <div style="width:40px;height:15px;background-color:@Html.DisplayFor(model => model.User.AccountProfileColorFront);"></div>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./EditUser" asp-route-id="@Model.User.UserID">Edit</a> |
+    <a asp-page="./UserIndex">Back to List</a>
+</div>

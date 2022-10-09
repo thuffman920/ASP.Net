@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "77c84d99-605a-4c94-a920-6d609ff4cb6d": {
+      "ProjectGuid": "77c84d99-605a-4c94-a920-6d609ff4cb6d",
+      "DisplayName": "SecureAJAXLogin",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

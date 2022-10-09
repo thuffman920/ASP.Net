@@ -1,0 +1,72 @@
+﻿@page
+@model DryRidgeProgramming.Pages.Users.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="./CreateUser">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].NumOfTickets)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].NumOfRequests)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].AccountProfileColorBack)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User[0].AccountProfileColorFront)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.User) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumOfTickets)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumOfRequests)
+            </td>
+            <td>
+                <div style="width:40px;height:15px;background-color:@Html.DisplayFor(modelItem => item.AccountProfileColorBack);"></div>
+            </td>
+            <td>
+                <div style="width:40px;height:15px;background-color:@Html.DisplayFor(modelItem => item.AccountProfileColorFront);"></div>
+            </td>
+            <td>
+                <a asp-page="./EditUser" asp-route-id="@item.UserID">Edit</a> |
+                <a asp-page="./DetailsUser" asp-route-id="@item.UserID">Details</a> |
+                <a asp-page="./DeleteUser" asp-route-id="@item.UserID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

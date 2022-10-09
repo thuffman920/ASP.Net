@@ -1,0 +1,112 @@
+﻿@page
+@model SampleASPNetCoreApp.Pages.Teachers.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Teacher</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Teacher.FirstName" class="control-label"></label>
+                <input asp-for="Teacher.FirstName" class="form-control" />
+                <span asp-validation-for="Teacher.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.LastName" class="control-label"></label>
+                <input asp-for="Teacher.LastName" class="form-control" />
+                <span asp-validation-for="Teacher.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Gender" class="control-label"></label>
+                <select asp-for="Teacher.Gender" class="form-control">
+                    <option selected="selected" disabled="disabled">Select Gender...</option>
+                    <option>Female</option>
+                    <option>Male</option>
+                </select>
+                <span asp-validation-for="Teacher.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Age" class="control-label"></label>
+                <input asp-for="Teacher.Age" class="form-control" />
+                <span asp-validation-for="Teacher.Age" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Teacher.IsLicensed" /> @Html.DisplayNameFor(model => model.Teacher.IsLicensed)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.YearsOfEmployment" class="control-label"></label>
+                <input asp-for="Teacher.YearsOfEmployment" class="form-control" />
+                <span asp-validation-for="Teacher.YearsOfEmployment" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Teacher.IsNationalBoardCertified" /> @Html.DisplayNameFor(model => model.Teacher.IsNationalBoardCertified)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Classroom1" class="control-label"></label>
+                <select asp-for="Teacher.Classroom1" class="form-control">
+                    <option value="-1" selected="selected">Select class...</option>
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                    }
+                </select>
+                <span asp-validation-for="Teacher.Classroom1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Classroom2" class="control-label"></label>
+                <select asp-for="Teacher.Classroom2" class="form-control">
+                    <option value="-1" selected="selected">Select class...</option>
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                    }
+                </select>
+                <span asp-validation-for="Teacher.Classroom2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Classroom3" class="control-label"></label>
+                <select asp-for="Teacher.Classroom3" class="form-control">
+                    <option value="-1" selected="selected">Select class...</option>
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                    }
+                </select>
+                <span asp-validation-for="Teacher.Classroom3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Teacher.Classroom4" class="control-label"></label>
+                <select asp-for="Teacher.Classroom4" class="form-control">
+                    <option value="-1" selected="selected">Select class...</option>
+                    @foreach (var nextClass in Model.Classes)
+                    {
+                        <option value="@nextClass.ClassroomID">@(nextClass.CodeName + ": " + nextClass.ClassroomName)</option>
+                    }
+                </select>
+                <span asp-validation-for="Teacher.Classroom4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,215 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <title>Dry Ridge Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="consistent.css">
+    <link rel="stylesheet" href="coming.css">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bg-image {
+            filter: blur(8px);
+            -webkit-filter: blur(8px);
+            height: auto;
+            width: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .bg-text {
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
+            color: white;
+            font-weight: bold;
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            z-index: 2;
+            left: 15%;
+            width: 70%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 10px;
+            height: 475px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        .container {
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .col-07 {
+            float: left;
+            width: 7%;
+            margin-top: 6px;
+        }
+
+        .col-93 {
+            float: left;
+            width: 93%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 100%;
+            margin-top: 6px;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+
+        .button {
+            border-radius: 4px;
+            background-color: #4CAF50;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 20px;
+            padding: 10px;
+            width: 150px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+            .button span {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                transition: 0.5s;
+            }
+
+            .button:hover {
+                background-color: #45a049;
+            }
+
+            .button:active {
+                background-color: #45a049;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+
+            .button span:after {
+                content: '\00bb';
+                position: absolute;
+                opacity: 0;
+                top: 0;
+                right: -20px;
+                transition: 0.5s;
+            }
+
+            .button:hover span {
+                padding-right: 25px;
+            }
+
+                .button:hover span:after {
+                    opacity: 1;
+                    right: 0;
+                }
+
+        .label:before {
+            content: "*";
+            color: red
+        }
+    </style>
+</head>
+<body>
+    <img class="bg-image" src="Dry_Ridge_Programming_Logo.jpg" alt="Dry Ridge Programming">
+    <div class="bg-text">
+        <h1 style="font-size:7vw">Coming Soon...</h1>
+        <p style="font-size:2vw">A freelancer programmer that specializes in creating custom computer applications and websites at a reasonable price</p>
+    </div>
+    <div class="icon-bar">
+        <a href="https://www.facebook.com/tyler.huffman.90038" class="facebook"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.linkedin.com/in/tyler-huffman-45296912a/" class="linkedin"><i class="fa fa-linkedin"></i></a>
+        <a href="https://github.com/thuffman920" class="github"><i class="fa fa-github"></i></a>
+    </div>
+    <div id="main">
+        <div class="row">
+            <div class="column">
+                <h2>Contact us</h2>
+                <div class="container">
+                    <form action="./contact_page.php" target="_self" method="POST">
+                        <div class="row">
+                            <div class="col-75">
+                                <input type="text" id="name" name="name" placeholder="Name" style="background-color:#f2f2f2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-75">
+                                <input type="text" id="email" name="email" placeholder="Email" style="background-color:#f2f2f2">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-75">
+                                <textarea id="subject" name="subject" placeholder="Message" style="height:200px;background-color:#f2f2f2"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-07">
+                                <input type="checkbox" id="myCheck" onclick="authorize()">
+                            </div>
+                            <div class="col-93">
+                                I hereby agree that this data will be stored and processed for the purpose of establishing contact. I am aware that I can revoke my consent at any time.
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" id="submitButton" class="button" style="display:none;margin-top:6px;"><span>Send</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="column">
+                <h2>Contact Information</h2>
+                <p><i class="fa fa-fw fa-envelope"></i> thuffman920@gmail.com</p>
+            </div>
+        </div>
+    </div>
+    <script>
+            function authorize() {
+                var checkBox = document.getElementById("myCheck");
+                var text = document.getElementById("submitButton");
+                if (checkBox.checked == true){
+                    text.style.display = "block";
+                } else {
+                    text.style.display = "none";
+                }
+            }
+    </script>
+</body>
+</html>

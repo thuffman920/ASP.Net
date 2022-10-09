@@ -1,0 +1,61 @@
+CREATE TABLE userinfo (
+   username VARCHAR(50) NOT NULL PRIMARY KEY,
+   addressA VARCHAR(255),
+   addressB VARCHAR(255),
+   city VARCHAR(255),
+   state VARCHAR(2),
+   zipcode VARCHAR(5),
+   lastupdated DATETIME DEFAULT CURRENT_TIMESTAMP,
+   mostrecentticket INT,
+   manyrequests INT,
+   creditlimit DOUBLE,
+   balance DOUBLE,
+   minpayment DOUBLE,
+   lastpayment DOUBLE,
+   lastpaymentdate DATETIME
+   );
+
+CREATE TABLE tbluser (
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   firstname VARCHAR(255) NOT NULL,
+   lastname VARCHAR(255) NOT NULL,
+   companyname VARCHAR(255),
+   email VARCHAR(255) NOT NULL,
+   phone VARCHAR(20) NOT NULL,
+   username VARCHAR(50) NOT NULL,
+   password VARCHAR(50) NOT NULL,
+   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+   );
+
+CREATE TABLE requests (
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   username VARCHAR(50) NOT NULL,
+   dateSubmitted DATETIME DEFAULT CURRENT_TIMESTAMP,
+   dateResponse DATETIME DEFAULT CURRENT_TIMESTAMP,
+   description MEDIUMTEXT(3000),
+   response VARCHAR(255),
+   approved VARCHAR(255),
+   quotedPrice DOUBLE
+   );
+
+CREATE TABLE opentickets (
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   username VARCHAR(50),
+   numofstages INT,
+   numsubstages INT,
+   totalnumstages INT,
+   currentStage VARCHAR(255),
+   lastupdated DATEWTIME DEFAULT CURRENT_TIMESTAMP,
+   currentDesc MEDIUMTEXT(3000),
+   percentage DOUBLE,
+   completedDate DATETIME
+);
+
+CREATE TABLE closedtickets (
+   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   completedDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+   totalnumstages INT,
+   startedDate DATETIME,
+   closedDate DATETIME,
+   finished BOOLEAN
+   );

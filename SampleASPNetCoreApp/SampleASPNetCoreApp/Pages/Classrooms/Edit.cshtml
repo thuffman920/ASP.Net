@@ -1,0 +1,55 @@
+﻿@page
+@model SampleASPNetCoreApp.Pages.Classrooms.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Classroom</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Classroom.ClassroomID" />
+            <div class="form-group">
+                <label asp-for="Classroom.CodeName" class="control-label"></label>
+                <input asp-for="Classroom.CodeName" class="form-control" />
+                <span asp-validation-for="Classroom.CodeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Classroom.ClassroomName" class="control-label"></label>
+                <input asp-for="Classroom.ClassroomName" class="form-control" />
+                <span asp-validation-for="Classroom.ClassroomName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Classroom.Subject" class="control-label"></label>
+                <input asp-for="Classroom.Subject" class="form-control" />
+                <span asp-validation-for="Classroom.Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Classroom.StartTime" class="control-label"></label>
+                <input asp-for="Classroom.StartTime" class="form-control" />
+                <span asp-validation-for="Classroom.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Classroom.EndTime" class="control-label"></label>
+                <input asp-for="Classroom.EndTime" class="form-control" />
+                <span asp-validation-for="Classroom.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

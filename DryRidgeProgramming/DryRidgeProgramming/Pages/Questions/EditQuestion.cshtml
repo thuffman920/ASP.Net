@@ -1,0 +1,217 @@
+﻿@page
+@model DryRidgeProgramming.Pages.Questions.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Question</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Question.QuestionID" />
+            <div class="form-group">
+                <label asp-for="Question.QuestionNumber" class="control-label"></label>
+                <input asp-for="Question.QuestionNumber" class="form-control" />
+                <span asp-validation-for="Question.QuestionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.Layout" class="control-label"></label>
+                <input asp-for="Question.Layout" class="form-control" />
+                <span asp-validation-for="Question.Layout" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuestionText" class="control-label"></label>
+                <input asp-for="Question.QuestionText" class="form-control" />
+                <span asp-validation-for="Question.QuestionText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.NumberOfOptions" class="control-label"></label>
+                <input id="NumOfOpts" asp-for="Question.NumberOfOptions" class="form-control" />
+                <span asp-validation-for="Question.NumberOfOptions" class="text-danger"></span>
+            </div>
+            <div id="options">
+                <div class="form-group" id="opts1" style="display:none;">
+                    <label asp-for="Question.Option1" class="control-label"></label>
+                    <input asp-for="Question.Option1" class="form-control" />
+                    <span asp-validation-for=" Question.Option1" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts2" style="display:none;">
+                    <label asp-for="Question.Option2" class="control-label"></label>
+                    <input asp-for="Question.Option2" class="form-control" />
+                    <span asp-validation-for=" Question.Option2" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts3" style="display:none;">
+                    <label asp-for="Question.Option3" class="control-label"></label>
+                    <input asp-for="Question.Option3" class="form-control" />
+                    <span asp-validation-for=" Question.Option3" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts4" style="display:none;">
+                    <label asp-for="Question.Option4" class="control-label"></label>
+                    <input asp-for="Question.Option4" class="form-control" />
+                    <span asp-validation-for=" Question.Option4" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts5" style="display:none;">
+                    <label asp-for="Question.Option5" class="control-label"></label>
+                    <input asp-for="Question.Option5" class="form-control" />
+                    <span asp-validation-for=" Question.Option5" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts6" style="display:none;">
+                    <label asp-for="Question.Option6" class="control-label"></label>
+                    <input asp-for="Question.Option6" class="form-control" />
+                    <span asp-validation-for=" Question.Option6" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts7" style="display:none;">
+                    <label asp-for="Question.Option7" class="control-label"></label>
+                    <input asp-for="Question.Option7" class="form-control" />
+                    <span asp-validation-for=" Question.Option7" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts8" style="display:none;">
+                    <label asp-for="Question.Option8" class="control-label"></label>
+                    <input asp-for="Question.Option8" class="form-control" />
+                    <span asp-validation-for=" Question.Option8" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts9" style="display:none;">
+                    <label asp-for="Question.Option9" class="control-label"></label>
+                    <input asp-for="Question.Option9" class="form-control" />
+                    <span asp-validation-for=" Question.Option9" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts10" style="display:none;">
+                    <label asp-for="Question.Option10" class="control-label"></label>
+                    <input asp-for="Question.Option10" class="form-control" />
+                    <span asp-validation-for=" Question.Option10" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts11" style="display:none;">
+                    <label asp-for="Question.Option11" class="control-label"></label>
+                    <input asp-for="Question.Option11" class="form-control" />
+                    <span asp-validation-for=" Question.Option11" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts12" style="display:none;">
+                    <label asp-for="Question.Option12" class="control-label"></label>
+                    <input asp-for="Question.Option12" class="form-control" />
+                    <span asp-validation-for=" Question.Option12" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts13" style="display:none;">
+                    <label asp-for="Question.Option13" class="control-label"></label>
+                    <input asp-for="Question.Option13" class="form-control" />
+                    <span asp-validation-for=" Question.Option13" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts14" style="display:none;">
+                    <label asp-for="Question.Option14" class="control-label"></label>
+                    <input asp-for="Question.Option14" class="form-control" />
+                    <span asp-validation-for=" Question.Option14" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts15" style="display:none;">
+                    <label asp-for="Question.Option15" class="control-label"></label>
+                    <input asp-for="Question.Option15" class="form-control" />
+                    <span asp-validation-for=" Question.Option15" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts16" style="display:none;">
+                    <label asp-for="Question.Option16" class="control-label"></label>
+                    <input asp-for="Question.Option16" class="form-control" />
+                    <span asp-validation-for=" Question.Option16" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts17" style="display:none;">
+                    <label asp-for="Question.Option17" class="control-label"></label>
+                    <input asp-for="Question.Option17" class="form-control" />
+                    <span asp-validation-for=" Question.Option17" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts18" style="display:none;">
+                    <label asp-for="Question.Option18" class="control-label"></label>
+                    <input asp-for="Question.Option18" class="form-control" />
+                    <span asp-validation-for=" Question.Option18" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts19" style="display:none;">
+                    <label asp-for="Question.Option19" class="control-label"></label>
+                    <input asp-for="Question.Option19" class="form-control" />
+                    <span asp-validation-for=" Question.Option19" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts20" style="display:none;">
+                    <label asp-for="Question.Option20" class="control-label"></label>
+                    <input asp-for="Question.Option20" class="form-control" />
+                    <span asp-validation-for=" Question.Option20" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts21" style="display:none;">
+                    <label asp-for="Question.Option21" class="control-label"></label>
+                    <input asp-for="Question.Option21" class="form-control" />
+                    <span asp-validation-for=" Question.Option21" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts22" style="display:none;">
+                    <label asp-for="Question.Option22" class="control-label"></label>
+                    <input asp-for="Question.Option22" class="form-control" />
+                    <span asp-validation-for=" Question.Option22" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts23" style="display:none;">
+                    <label asp-for="Question.Option23" class="control-label"></label>
+                    <input asp-for="Question.Option23" class="form-control" />
+                    <span asp-validation-for=" Question.Option23" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts24" style="display:none;">
+                    <label asp-for="Question.Option24" class="control-label"></label>
+                    <input asp-for="Question.Option24" class="form-control" />
+                    <span asp-validation-for=" Question.Option24" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts25" style="display:none;">
+                    <label asp-for="Question.Option25" class="control-label"></label>
+                    <input asp-for="Question.Option25" class="form-control" />
+                    <span asp-validation-for=" Question.Option25" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts26" style="display:none;">
+                    <label asp-for="Question.Option26" class="control-label"></label>
+                    <input asp-for="Question.Option26" class="form-control" />
+                    <span asp-validation-for=" Question.Option26" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts27" style="display:none;">
+                    <label asp-for="Question.Option27" class="control-label"></label>
+                    <input asp-for="Question.Option27" class="form-control" />
+                    <span asp-validation-for=" Question.Option27" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts28" style="display:none;">
+                    <label asp-for="Question.Option28" class="control-label"></label>
+                    <input asp-for="Question.Option28" class="form-control" />
+                    <span asp-validation-for=" Question.Option28" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts29" style="display:none;">
+                    <label asp-for="Question.Option29" class="control-label"></label>
+                    <input asp-for="Question.Option29" class="form-control" />
+                    <span asp-validation-for=" Question.Option29" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="opts30" style="display:none;">
+                    <label asp-for="Question.Option30" class="control-label"></label>
+                    <input asp-for="Question.Option30" class="form-control" />
+                    <span asp-validation-for=" Question.Option30" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./QuestionIndex">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        $(window).on("load", onKeyUpNumber);
+        $("#NumOfOpts").on("keyup", onKeyUpNumber);
+        function onKeyUpNumber() {
+            var numOfoptions = 0;
+            if ($("#NumOfOpts").val().toString().length > 0)
+                numOfoptions = parseInt($("#NumOfOpts").val());
+            for (var i = 0; i < numOfoptions; i++)
+                document.getElementById("opts" + (i + 1)).style.display = "block";
+            for (var i = numOfoptions; i < 30; i++)
+                document.getElementById("opts" + (i + 1)).style.display = "none";
+        }
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

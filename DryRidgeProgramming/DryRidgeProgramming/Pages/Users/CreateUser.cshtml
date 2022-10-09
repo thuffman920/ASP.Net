@@ -1,0 +1,74 @@
+﻿@page
+@model DryRidgeProgramming.Pages.Users.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="User.UserName" class="control-label"></label>
+                <input asp-for="User.UserName" class="form-control" />
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Password" class="control-label"></label>
+                <input asp-for="User.Password" class="form-control" />
+                <span asp-validation-for="User.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.FirstName" class="control-label"></label>
+                <input asp-for="User.FirstName" class="form-control" />
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label"></label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.LastName" class="control-label"></label>
+                <input asp-for="User.LastName" class="form-control" />
+                <span asp-validation-for="User.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.NumOfTickets" class="control-label"></label>
+                <input asp-for="User.NumOfTickets" class="form-control" />
+                <span asp-validation-for="User.NumOfTickets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.NumOfRequests" class="control-label"></label>
+                <input asp-for="User.NumOfRequests" class="form-control" />
+                <span asp-validation-for="User.NumOfRequests" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.AccountProfileColorBack" class="control-label"></label>
+                <input type="color" asp-for="User.AccountProfileColorBack" class="form-control" value="#f26722" />
+                <span asp-validation-for="User.AccountProfileColorBack" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.AccountProfileColorFront" class="control-label"></label>
+                <input type="color" asp-for="User.AccountProfileColorFront" class="form-control" value="#0000ff" />
+                <span asp-validation-for="User.AccountProfileColorFront" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

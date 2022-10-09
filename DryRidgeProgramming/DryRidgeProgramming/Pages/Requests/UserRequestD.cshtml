@@ -1,0 +1,603 @@
+﻿@page "{id:int?}"
+@model DryRidgeProgramming.Pages.Requests.UserRequestDModel
+
+@{
+    ViewData["Title"] = "Request";
+    int[] headerValues = { 8, 10, 8, 9, 4 };
+    var countH = 0;
+    int indexH = -1;
+    for (var i = 0; i < headerValues.Length; i++) {
+        if (countH + headerValues[i] > Model.QuestionID - 1) {
+            indexH = i;
+            ViewData["head" + (char)(65 + i) + "1"] = Model.QuestionID - 1 - countH;
+            ViewData["head" + (char)(65 + i) + "2"] = "block";
+            break;
+        }
+        ViewData["head" + (char)(65 + i) + "1"] = headerValues[i];
+        ViewData["head" + (char)(65 + i) + "2"] = "block";
+        countH += headerValues[i];
+    }
+    for (int i = indexH + 1; i < headerValues.Length; i++)
+        ViewData["head" + (char)(65 + i) + "2"] = "none";
+    for (int i = 0; i < 5; i++) {
+        ViewData["headClass" + (char)(i + 65) + "1"] = (indexH == i ? "h" : "defH") + "eaderTab";
+        ViewData["headClass" + (char)(i + 65) + "2"] = (indexH == i ? "h" : "defH") + "eaderText";
+    }
+    Layout = "~/Pages/Shared/_QuestionLayout.cshtml";
+    string[] middle = new string[5];
+    int questionI = 0;
+    int[][] puzzle = new int[][] { new int[] { 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0 },
+            new int[] { 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0 },
+            new int[] { 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0 },
+            new int[] { 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0, 0 }, new int[] { 0, 0, 0 },
+            new int[] { 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0, 0 }, new int[] { 0, 0 } };
+    string[] pclasses = new string[] { "partial_puzzle_TLC", "partial_puzzle_T", "partial_puzzle_T", "partial_puzzle_T", "partial_puzzle_TRC",
+            "partial_puzzle_L", "puzzle", "puzzle", "puzzle", "partial_puzzle_R", "partial_puzzle_L", "puzzle", "puzzle", "puzzle", "partial_puzzle_R",
+            "partial_puzzle_L", "puzzle", "puzzle", "puzzle", "partial_puzzle_R", "partial_puzzle_BLC", "partial_puzzle_B", "partial_puzzle_B",
+            "partial_puzzle_B", "partial_puzzle_BRC"};
+    int[][] dirNumber = new int[][] { new int[] { 1, 2 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 }, new int[] { 2, 3 },
+            new int[] { 0, 1, 2 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 2, 3 },
+            new int[] { 0, 1, 2 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 2, 3 },
+            new int[] { 0, 1, 2 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 1, 2, 3 }, new int[] { 0, 2, 3 },
+            new int[] { 0, 1 }, new int[] { 0, 1, 3 }, new int[] { 0, 1, 3 }, new int[] { 0, 1, 3 }, new int[] { 0, 3 } };
+    int[,,] puzzleEqu = { { { 0, -4 }, { 0, 29 }, { 0, -19 }, { 0, 29 } }, { { -22, 51 }, { 0, 61 }, { -22, 51 }, { 0, 76 } }, { { -22, 83 }, { 0, 29 }, { -22, 98 }, { 0, 29 } }, { { -22, 51 }, { 0, -4 }, { -22, 51 }, { 0, -19 } } };
+    int[][][][,] partials = new int[][][][,] { new int[][][,] { new int[][,] { new int[,] { { -1, 31 } }, new int[,] { { -1, 46 } } }, new int[][,] { new int[,] { { 31, -1 }, { 9, -1 } }, new int[,] { { 46, -1 }, { 24, -1 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { -1, 61 } }, new int[,] { { -1, 76 } } }, new int[][,] { new int[,] { { 31, 29 }, { 9, 29 } }, new int[,] { { 46, 29 }, { 24, 29 } } }, new int[][,] { new int[,] { { -1, -4 }, { -23, -4 }, { -45, -4 } }, new int[,] { { -1, -19 }, { -23, -19 }, { -45, -19 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { -1, 61 } }, new int[,] { { -1, 76 } } }, new int[][,] { new int[,] { { 31, 29 }, { 9, 29 } }, new int[,] { { 46, 29 }, { 24, 29 } } }, new int[][,] { new int[,] { { -1, -4 }, { -23, -4 }, { -45, -4 } }, new int[,] { { -1, -19 }, { -23, -19 }, { -45, -19 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { -1, 61 } }, new int[,] { { -1, 76 } } }, new int[][,] { new int[,] { { 31, 29 }, { 9, 29 } }, new int[,] { { 46, 29 }, { 24, 29 } } }, new int[][,] { new int[,] { { -1, -4 }, { -23, -4 }, { -45, -4 } }, new int[,] { { -1, -19 }, { -23, -19 }, { -45, -19 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { 46, 28 } }, new int[,] { { 31, 28 } } }, new int[][,] { new int[,] { { -1, -4 }, { -23, -4 } }, new int[,] { { -1, -19 }, { -23, -19 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, -1 } }, new int[,] { { -19, -1} } }, new int[][,] { new int[,] { { 29, 31 }, { 7, 31 } }, new int[,] { { 29, 46 }, { 7, 46 } } }, new int[][,] { new int[,] { { 61, -1 }, { 39, -1 }, { 17, -1 } }, new int[,]{ { 76, -1 }, { 54, -1 }, {32, -1 } } } },
+        new int[][][,] { }, new int[][][,] { }, new int[][][,] { }, new int[][][,] { new int[][,]{ new int[,] { { -4, 28 } }, new int[,] { { -19, 28 } } }, new int[][,] { new int[,] { { 61, 28 }, { 39, 28 } }, new int[,] { { 76, 28 }, { 54, 28 } } }, new int[][,] { new int[,] { { 29, -4 }, { 7, -4 }, { -15, -4 } }, new int[,] { { 29, -19 }, { 7, -19 }, { -15, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, -1 } }, new int[,] { { -19, -1} } }, new int[][,] { new int[,] { { 29, 31 }, { 7, 31 } }, new int[,] { { 29, 46 }, { 7, 46 } } }, new int[][,] { new int[,] { { 61, -1 }, { 39, -1 }, { 17, -1 } }, new int[,]{ { 76, -1 }, { 54, -1 }, {32, -1 } } } },
+        new int[][][,] { }, new int[][][,] { }, new int[][][,] { }, new int[][][,] { new int[][,]{ new int[,] { { -4, 28 } }, new int[,] { { -19, 28 } } }, new int[][,] { new int[,] { { 61, 28 }, { 39, 28 } }, new int[,] { { 76, 28 }, { 54, 28 } } }, new int[][,] { new int[,] { { 29, -4 }, { 7, -4 }, { -15, -4 } }, new int[,] { { 29, -19 }, { 7, -19 }, { -15, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, -1 } }, new int[,] { { -19, -1} } }, new int[][,] { new int[,] { { 29, 31 }, { 7, 31 } }, new int[,] { { 29, 46 }, { 7, 46 } } }, new int[][,] { new int[,] { { 61, -1 }, { 39, -1 }, { 17, -1 } }, new int[,]{ { 76, -1 }, { 54, -1 }, {32, -1 } } } },
+        new int[][][,] { }, new int[][][,] { }, new int[][][,] { }, new int[][][,] { new int[][,]{ new int[,] { { -4, 28 } }, new int[,] { { -19, 28 } } }, new int[][,] { new int[,] { { 61, 28 }, { 39, 28 } }, new int[,] { { 76, 28 }, { 54, 28 } } }, new int[][,] { new int[,] { { 29, -4 }, { 7, -4 }, { -15, -4 } }, new int[,] { { 29, -19 }, { 7, -19 }, { -15, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, -1 } }, new int[,] { { -19, -1 } } }, new int[][,] { new int[,] { { 28, 31 }, { 6, 31 } }, new int[,] { { 28, 46 }, { 6, 46 } } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, 29 } }, new int[,] { { -19, 29 } } }, new int[][,] { new int[,] { { 28, 61 }, { 6, 61 } }, new int[,] { { 28, 76 }, { 6, 76 } } }, new int[][,] { new int[,] { { 28, -4 }, { 6, -4 }, { -16, -4 } }, new int[,] { { 28, -19 }, {6, -19}, {-16, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, 29 } }, new int[,] { { -19, 29 } } }, new int[][,] { new int[,] { { 28, 61 }, { 6, 61 } }, new int[,] { { 28, 76 }, { 6, 76 } } }, new int[][,] { new int[,] { { 28, -4 }, { 6, -4 }, { -16, -4 } }, new int[,] { { 28, -19 }, {6, -19}, {-16, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, 29 } }, new int[,] { { -19, 29 } } }, new int[][,] { new int[,] { { 28, 61 }, { 6, 61 } }, new int[,] { { 28, 76 }, { 6, 76 } } }, new int[][,] { new int[,] { { 28, -4 }, { 6, -4 }, { -16, -4 } }, new int[,] { { 28, -19 }, {6, -19}, {-16, -19} } } },
+        new int[][][,] { new int[][,] { new int[,] { { -4, 28 } }, new int[,] { { -19, 28 } } }, new int[][,] { new int[,] { { 28, -4 }, { 6, -4 } }, new int[,] { { 28, -19 }, { 6, -19 } } } } };
+    string[,] types = new string[,] { { "top_knob", "top_hole" }, { "right_knob", "right_hole" }, { "bottom_knob", "bottom_hole" }, { "left_knob", "left_hole" } };
+    int[,,] puzzleEqus = new int[,,] { { { 0, -4 }, { 0, 29 }, { 0, -19 }, { 0, 29 } }, { { -22, 51 }, { 0, 61 }, { -22, 51 }, { 0, 76 } }, { { -22, 83 }, { 0, 29 }, { -22, 98 }, { 0, 29 } }, { { -22, 51 }, { 0, -4 }, { -22, 51 }, { 0, -19 } } };
+    int[] miss = new int[] { };
+    bool[] isSides = new bool[] { false, false, false, false };
+    Random rand = new Random();
+    int[] dummy = new int[6];
+    string[][] options = new string[][] {};
+    int type = -1;
+    string questionText = "";
+    string descr = "";
+    for (int i = 0; i < 3; i++) {
+        dummy[2 * i] = int.Parse(Model.DummyQuestions[(3 * i)..(3 * i + 2)]);
+        dummy[2 * i + 1] = int.Parse(Model.DummyQuestions[(3 * i + 2)..(3 * i + 3)]);
+        if (dummy[2 * i] == Model.QuestionID)
+            type = dummy[2 * i + 1];
+    }
+    if (type == 1) {
+        //Initialize a randomize 3 x 3 puzzle
+        questionText = "Please picked the appropriate piece that fits into the greyed puzzle piece.";
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 3; j++)
+                for (int k = 0; k < 4; k++) {
+                    if ((i == 0 && k == 0) || (i >= 0 && j == 0 && k == 3) || (i >= 0 && j == 2 && k == 1) || (i == 2 && k == 2))
+                        puzzle[5 * i + j + 6][k] = rand.Next(3) - 1;
+                    else
+                        puzzle[5 * i + j + 6][k] = (rand.Next(2) == 0 ? -1 : 1);
+                }
+        for (int i = 0; i < 4; i++) {
+            int m = (i == 0 || i == 2 ? 1 : 5);
+            int b = (i == 0 || i == 2 ? 5 : 3) + (i == 2 ? 10 : (i == 3 ? -2 : 0));
+            isSides[i] = (puzzle[m + b][i] == 0);
+            if (isSides[i]) {
+                for (int j = 0; j < 5; j++)
+                    puzzle[m * j + b][(i != 0 && (j == 0 || j == 4) ? i - 1 : i)] = (puzzle[m * j + b][(i != 0 && (j == 0 || j == 4) ? i - 1 : i)] != -2 ? puzzle[m + b][i] : -2);
+                for (int j = 0; j < 5; j++)
+                    for (int k = 0; k < puzzle[j].Length; k++)
+                        puzzle[m * j + b + (i == 0 || i == 3 ? -1 : 1) * (i == 0 || i == 2 ? 5 : 1)][k] = -2;
+            } else {
+                for (int j = 2; j < 4; j++)
+                    if (puzzle[m * j + b][i] == 0)
+                        puzzle[m * j + b][i] = (rand.Next(2) == 0 ? -1 : 1);
+            }
+        }
+        // Fix the randomized 3 x 3 puzzle
+        for (int i = 0; i < 3; i++) {
+            if (i == 0)
+                for (int j = 0; j < 3; j++)
+                    puzzle[1 + j][1] =  (puzzle[1 + j][1] != -2 ? 0 - puzzle[6 + j][0] : -2);
+            puzzle[5 * i + 5][1] = (puzzle[5 * i + 5][1] != -2 ? 0 - puzzle[5 * i + 6][3] : -2);
+            for (int j = 0; j < 3; j++) {
+                puzzle[5 * i + j + 6][0] = (i == 0 ? puzzle[5 * i + j + 6][0] : 0 - puzzle[5 * i + j + 1][2]);
+                puzzle[5 * i + j + 6][3] = (j == 0 ? puzzle[5 * i + j + 6][3] : 0 - puzzle[5 * i + j + 5][1]);
+            }
+            puzzle[5 * i + 9][2] = (puzzle[5 * i + 9][2] != -2 ? 0 - puzzle[5 * i + 8][1] : -2);
+        }
+        for (int j = 0; j < 3; j++)
+            puzzle[21 + j][0] = 0 - puzzle[16 + j][2];
+        //Fix the partial puzzle pieces
+        if (!isSides[0]) {
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < puzzle[i].Length; j++)
+                    if (puzzle[i][j] != -2)
+                        if (i > 0 && j == puzzle[i].Length - 1)
+                            puzzle[i][j] = (puzzle[i - 1][0] != -2 ? 0 - puzzle[i - 1][0] : 0);
+                        else if ((j != 1) || (j == 1 && (i == 0 || i == 4)))
+                            puzzle[i][j] = (i == 3 && j == 0 && puzzle[4][0] == -2 ? 0 : (rand.Next(2) == 0 ? -1 : 1));
+        }
+        for (int i = 0; i < 3; i++) {
+            if (!isSides[3]) {
+                puzzle[5 + 5 * i][0] = (puzzle[5 * i][(i == 0 ? 1 : 2)] == -2 ? 0 : 0 - puzzle[5 * i][(i == 0 ? 1 : 2)]);
+                puzzle[5 + 5 * i][2] = (rand.Next(2) == 0 ? -1 : 1);
+            }
+            if (!isSides[1]) {
+                puzzle[9 + 5 * i][0] = (puzzle[4 + 5 * i][(i == 0 ? 0 : 1)] == -2 ? 0 : 0 - puzzle[4 + 5 * i][(i == 0 ? 0 : 1)]);
+                puzzle[9 + 5 * i][1] = (rand.Next(2) == 0 ? -1 : 1);
+            }
+        }
+        if (!isSides[2]) {
+            //Change was made to the indexing
+            for (int i = 20; i < 25; i++) {
+                if (i == 20 || i == 24)
+                    puzzle[i][0] = 0 - puzzle[i - 5][(i == 20 ? 2 : 1)];
+                for (int j = 1; j < puzzle[i].Length; j++)
+                    if (j == puzzle[i].Length - 1 && i > 20)
+                        puzzle[i][puzzle[i].Length - 1] = 0 - puzzle[i - 1][1];
+                    else
+                        puzzle[i][j] = (rand.Next(2) == 0 ? -1 : 1);
+            }
+        }
+        //Generate the List of Options
+        int[][,] possibles = { new int[,] { { -1, -1, -1, -1 } },
+            new int[,] { { 0, -1, -1, -1 }, { -1, 0, -1, -1 }, { -1, -1, 0, -1 }, { -1, -1, -1, 0} },
+            new int[,] { { 0, 0, -1, -1 }, { -1, 0, 0, -1 }, { -1, -1, 0, 0 }, { 0, -1, -1, 0 }, { 1, -1, -1, -1 }, { -1, 1, -1, -1 }, { -1, -1, 1, -1 }, {-1, -1, -1, 1 } },
+            new int[,] { { 0, 0, -1, 1 }, { 1, 0, 0, -1 }, { -1, 1, 0, 0 }, { 0, -1, 1, 0 }, { 0, -1, 1, -1 }, { -1, 0, -1, 1 }, { 1, -1, 0, -1 }, { -1, 1, -1, 0 }, { 0, -1, -1, 1 }, { 1, 0, -1, -1 }, { -1, 1, 0, -1 }, { -1, -1, 1, 0 } },
+            new int[,] { { 0, 0, 1, -1 }, { -1, 0, 0, 1 }, { 1, -1, 0, 0 }, { 0, 0, 1, -1 }, { 0, 0, -1, 1 }, { 1, 0, 0, -1 }, { -1, 1, 0, 0 }, { 0, 0, -1, 1 }, { -1, -1, 1, 1 }, { 1, -1, -1, 1 }, { 1, 1, -1, -1 }, { -1, 1, 1, -1 }, { -1, 1, -1, 1 }, { 1, -1, 1, -1 } },
+            new int[,] { { 0, 1, 1, -1 }, { -1, 0, 1, 1 }, { 1, -1, 0, 1 }, { 1, 1, -1, 0 }, { 0, 1, -1, 1 }, { 1, 0, 1, -1 }, { -1, 1, 0, 1 }, { 1, -1, 1, 0 }, { 0, -1, 1, 1 }, { 1, 0, -1, 1 }, { 1, 1, 0, -1 }, { -1, 1, 1, 0 } },
+            new int[,] { { 0, 0, 1, 1 }, { 1, 0, 0, 1 }, { 1, 1, 0, 0 }, { 0, 1, 1, 0 }, { 1, 1, 1, -1 }, { -1, 1, 1, 1 }, { 1, -1, 1, 1 }, { 1, 1, -1, 1 } },
+            new int[,] { { 0, 1, 1, 1 }, { 1, 0, 1, 1 }, { 1, 1, 0, 1 }, { 1, 1, 1, 0 } },
+            new int[,] { { 1, 1, 1, 1 } } };
+        int x = rand.Next(3) + 1;
+        int y = rand.Next(3) + 1;
+        int iSum = puzzle[5 * x + y][0] + puzzle[5 * x + y][1] + puzzle[5 * x + y][2] + puzzle[5 * x + y][3] + 4;
+        int[] possS = new int[8];
+        for (int i = 0; i < 9; i++)
+            if (iSum != i)
+                possS[(i < iSum ? i : i - 1)] = i;
+        for (int i = 0; i < 30; i++) {
+            int randI = rand.Next(8);
+            int temp = possS[(i % 8)];
+            possS[(i % 8)] = possS[randI];
+            possS[randI] = temp;
+        }
+        options = new string[][] { new string[] { "0", "0", "0", "0" }, new string[] { "0", "0", "0", "0" }, new string[] { "0", "0", "0", "0" }, new string[] { "0", "0", "0", "0" } };
+        for (int i = 0; i < 3; i++) {
+            int m = rand.Next((possibles[possS[i]].Length / 4));
+            for (int j = 0; j < 4; j++)
+                options[i][j] = "" + possibles[possS[i]][m,j];
+        }
+        //Rotate the answer
+        int rI = rand.Next(4);
+        for (int i = 0; i < 4; i++)
+            options[3][i] = "" + puzzle[5 * x + y][(i + rI) % 4];
+        for (int i = 0; i < 25; i++)
+            for (int j = 0; j < puzzle[i].Length; j++)
+                descr += puzzle[i][j];
+        descr += ",";
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++)
+                descr += options[i][j];
+            descr += (i < 3 ? "," : "");
+        }
+        miss = new int[10] { x, y, 0, 0, 0, 0, 0, 0, 0, 0 };
+        //miss = new int[] { x, y, opts[0], rRand[opts[0]], opts[1], rRand[opts[1]], opts[2], rRand[opts[2]], opts[3], rRand[opts[3]] };
+    } else if (type == 3) {
+        questionText = "Please calculate the following basic math equation.";
+        string[][] possOpts = new string[][] { new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, new string[] { "+", "-", "x" } };
+        miss = new int[12] { 0, rand.Next(possOpts[0].Length), rand.Next(possOpts[1].Length), rand.Next(0, 2), 0, 0, 0, 0, 0, 0, 0, 0 };
+        /**int x = rand.Next(possOpts[0].Length);
+        int y = rand.Next(possOpts[1].Length);
+        int op = rand.Next(0, 2);*/
+        int min = (miss[3] == 2 ? 0 : -10);
+        int max = (miss[3] == 2 ? 100 : 20);
+        int ans = (miss[3] == 2 ? (miss[1] + 1) * (miss[2] + 1) : (miss[3] == 1 ? miss[1] - miss[2] : miss[1] + miss[2] + 2));
+        int[] array = new int[] { -11, -11, -11 };
+        for (var i = 0; i < 3; i++) {
+            var next = rand.Next(min, max);
+            while (next == ans || array[0] == next || array[1] == next || array[2] == next)
+                next = rand.Next(min, max);
+            array[i] = next;
+        }
+        options = new string[][] { new string[] { "" + array[0], "" + array[1], "" + array[2], "" + ans } };
+        descr = "" + miss[1] + miss[2] + miss[3] + ",";
+        for (int i = 0; i < 4; i++)
+            descr += miss[2 * i + 4] + (i == 3 ? "" : ",");
+        /**int[] opts = new int[] { 0, 1, 2, 3 };//Controllers.HomeController.RandArray(new int[] { 0, 1, 2, 3 });
+        for (int i = 0; i < 30; i++)
+        {
+            int randI = rand.Next(8);
+            int temp = opts[(i % 8)];
+            opts[(i % 8)] = opts[randI];
+            opts[randI] = temp;
+            }
+            int[] rRand = new int[] { rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000) };
+            Model.Options = rRand[3];
+            miss = new int[] { x, y, op, (opts[0] == 3 ? ans : array[opts[0]]), rRand[opts[0]], (opts[1] == 3 ? ans : array[opts[1]]), rRand[opts[1]], (opts[2] == 3 ? ans : array[opts[2]]), rRand[opts[2]], (opts[3] == 3 ? ans : array[opts[3]]), rRand[opts[3]] };*/
+    } else {
+        if (type == 2) {
+            // Odd Man Out
+            questionText = "Please pick the option that doesn't match the others.";
+            options = new string[][] { new string[] { "Dog", "Cat", "Bird", "Battery" }, new string[]{ "Hamburger", "Steak", "Tacos", "Airplane" }, new string[]{ "Car", "Truck", "SUV", "Cow" }, new string[] { "North", "West", "East", "Grass" },
+                new string[]{ "Pants", "Skirt", "Socks", "Brick" } };
+        } else if (type == 4) {
+            // Analogy
+            questionText = "Please complete the following analogy:";
+            options = new string[][] { new string[] {"pig is to swine as dog is to ", "male", "flowers", "strawberries", "canine"}, new string[] {"Albert Einstein is to scientist as Martin Luther King Jr. is to ", "classy", "old", "book", "civil rights leader"},
+                new string[] {"Apple is to iPhone as Google is to ", "big", "brownies", "dog", "Chrome"}, new string[] {"key is to door as password is to ", "worm", "yummy", "line", "email"},
+                new string[] {"cookies is to yummy as sunrise is to ", "necklace", "mountains", "Jackie Chan", "beautiful"}};
+        } else {
+            // Missing Word
+            questionText = "Please fill in the missing word in the following phase:";
+            options = new string[][] { new string[]{ "\"Uh, what's up, _________?\" Bugs Bunny", "Computer", "Blue", "Sky", "Doc" }, new string[] {"\"____________ is like a box of chocolates.\" Forrest Gump", "Kangaroos", "Bowties", "Nuts", "Life"},
+                new string[] {"\"I ______, therefore I am.\" Rene Descartes", "Shoe", "Window", "Tree", "Think" }, new string[] {"...'Til ________ do us part...", "Bath", "Concrete", "Kite", "Death" }, new string[] {"\"When the going gets tough, the _________ get going.\" Joe Kennedy", "Earrings", "Television", "Radiator", "Tough"},
+                new string[] { "\"That’s one small step for a man, one giant leap for ____________.\" Neil Armstrong", "Eyebrows", "Sunglasses", "Aliens", "Mankind"}, new string[] {"\"Let ____________ ring from the...\" Martin Luther King Jr.", "Sausage", "Skyscrapers", "Bounty", "Freedom"}};
+        }
+        miss = new int[9] { rand.Next(options.Length), 0, 0, 0, 0, 0, 0, 0, 0 };
+        /**int[] randomize = new int[] { 0, 1, 2, 3 };
+        for (int i = 0; i < 30; i++)
+        {
+            int randI = rand.Next(8);
+            int temp = randomize[(i % 8)];
+            randomize[(i % 8)] = randomize[randI];
+            randomize[randI] = temp;
+            }
+            int[] rRand = new int[] { rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000) };
+            Model.Options = rRand[3];
+            miss = new int[] { rand.Next(options.Length), randomize[0], rRand[randomize[0]], randomize[1], rRand[randomize[1]], randomize[2], rRand[randomize[2]], randomize[3], rRand[randomize[3]] };*/
+    }
+    Model.Description = (Model.Description == ";;" ? descr : Model.Description + ";" + descr);
+    int[] opts = new int[] { 0, 1, 2, 3 };
+    for (int i = 0; i < 30; i++) {
+        int randI = rand.Next(4);
+        int temp = opts[(i % 4)];
+        opts[(i % 4)] = opts[randI];
+        opts[randI] = temp;
+    }
+    int[] rRand = new int[] { rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000), rand.Next(10000, 1000000) };
+    Model.Options = rRand[3];
+    for (int i = 0; i < 4; i++)
+    {
+        miss[^(8 - 2 * i)] = opts[i];
+        miss[^(7 - 2 * i)] = rRand[opts[i]];
+    }
+}
+
+<form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Request.RequestID" />
+    <input type="hidden" asp-for="Question.QuestionNumber" />
+    <input type="hidden" asp-for="User.UserID" />
+    <input type="hidden" asp-for="DummyQuestions"/>
+    <input type="hidden" asp-for="Description"/>
+    <div class="question" style="display:grid;">
+        <label style="grid-row:1 / 2;grid-column:2 / 6;">@questionText</label>
+        @if (type == 1) {
+            @*Puzzle Option - Change it from Javascript to C# and HTML/CSS *@
+            <div style="grid-column:2 / 6;display:grid;grid-template-columns:1fr @(isSides[3] ? "" : "50px") repeat(3,80px) @(isSides[1] ? "" : "50px");grid-template-rows: 10px repeat(5,80px);">
+                @for (int i = 0; i < 25; i++)
+                {
+                    int x = (int)(i / 5);
+                    int y = (i % 5) - (isSides[3] ? 1 : 0) - (isSides[1] ? 1 : 0);
+                    @if (puzzle[i][0] != -2)
+                    {
+                        if (x == miss[0] && y == miss[1]) {
+                            <div class="missing_puzzle" style="grid-row:@(x + 2) / @(x + 3);grid-column:@(y + 2) / @(y + 3);"></div>
+                        } else {
+                            <div class=@pclasses[i] style="grid-row:@(x + 2) / @(x + 3);grid-column:@(y + 2) / @(y + 3);">
+                                @{ int count = 0; }
+                                @for (int j = 0; j < puzzle[i].Length; j++) {
+                                    if (puzzle[i][j] == 1) {
+                                        int t = (pclasses[i] == "puzzle" ? puzzleEqu[dirNumber[i][j],2,0] * (count + 1) + puzzleEqu[dirNumber[i][j],2,1] : partials[i][j][1][count,0]);
+                                        int l = (pclasses[i] == "puzzle" ? puzzleEqu[dirNumber[i][j],3,0] * (count + 1) + puzzleEqu[dirNumber[i][j],3,1] : partials[i][j][1][count,1]);
+                                        //puzzleHTML = puzzleHTML + pieceHTML(i, j, k, 2, dirCntr++, partials, puzzle, puzzleEqu, ids, classDirNames, puzzleDirs, "knob", "K");
+                                        if (i == 0 || i == 4 || j == 0 || j == 4) {
+                                            <div class="@types[dirNumber[i][j],0]" style="top:@(t)px;left:@(l)px;"></div>
+                                        } else {
+                                            <div class="@types[dirNumber[i][j],0]" style="top:@(t)px;left:@(l)px;"></div>
+                                        }
+                                        count++;
+                                    } else if (puzzle[i][j] == -1 && ((x == miss[0] - 1 && y == miss[1] && dirNumber[i][j] == 2) || (x == miss[0] && y == miss[1] - 1 && dirNumber[i][j] == 1)
+                                            || (x == miss[0] && y == miss[1] + 1 && dirNumber[i][j] == 3) || (x == miss[0] + 1 && y == miss[1] && dirNumber[i][j] == 0))) {
+                                        int t = (pclasses[i] == "puzzle" ? puzzleEqu[dirNumber[i][j],0,0] * (count + 1) + puzzleEqu[dirNumber[i][j],0,1] : partials[i][j][0][count,0]);
+                                        int l = (pclasses[i] == "puzzle" ? puzzleEqu[dirNumber[i][j],1,0] * (count + 1) + puzzleEqu[dirNumber[i][j],1,1] : partials[i][j][0][count,1]);
+                                        //puzzleHTML = puzzleHTML + pieceHTML(i, j, k, 0, dirCntr++, partials, puzzle, puzzleEqu, ids, classDirNames, puzzleDirs, "hole", "H");
+                                        if (i == 0 || i == 4 || j == 0 || j == 4) {
+                                            <div class="@types[dirNumber[i][j],1]" style="top:@(t)px;left:@(l)px;"></div>
+                                        } else {
+                                            <div class="@types[dirNumber[i][j],1]" style="top:@(t)px;left:@(l)px;"></div>
+                                        }
+                                        count++;
+                                    }
+                                    /**@if (puzzle[0][j] == 1) {
+                                        int t = (pclasses[i] == "puzzle" ? 0 : 0);
+                                        int l = 0;
+                                        <div class="@types[j,0]" style="top:@(t)px;left:@(l)px;"></div>
+                                        count++;
+                                    } else if (puzzle[0][j] == -1 && ((x == miss[0] - 1 && y == miss[1] && dirNumber[i][j] == 2) || (x == miss[0] && y == miss[1] - 1 && dirNumber[i][j] == 1) || (x == miss[0] && y == miss[1] + 1 && dirNumber[i][j] == 3) || (x == miss[0] + 1 && y == miss[1] && dirNumber[i][j] == 0))) {
+                                        int t = (pclasses[i] == "puzzle" ? 0 : 0);
+                                        int l = 0;
+                                        <div class="@types[j, 1]" style="top:@(t)px;left:@(l)px;"></div>
+                                        count++;
+                                    }*/
+                                }
+                            </div>
+                        }
+                    }
+                }
+                <div style="display:grid;grid-template-columns:50px 1fr;grid-template-rows:repeat(4, 1fr);row-gap:20px;">
+                    @for (int i = 0; i < 4; i++) {
+                        <input type="radio" value="@miss[2 * i + 3]" name=@("q" + Model.QuestionID) id=@("q" + Model.QuestionID + "_" + (i + 1) + "_c") style="grid-row:@i / @(i + 1);grid-column:1 / 2;margin-top:34px;">
+                        <label for=@("q" + Model.QuestionID + "_" + (i + 1) + "_c") style="grid-row:@i / @(i + 1);grid-column:2 / 3;display:inline-block;">
+                            <div name=@("q" + Model.QuestionID) for=@("q" + Model.QuestionID + "_" + i + "_c") class="puzzle">
+                                @{
+                                    string[] oppArr = new string[] { "bottom_knob", "left_knob", "top_knob", "right_knob" };
+                                    int count = 0;
+                                }
+                                @for (int j = 0; j < 4; j++) {
+                                    if (options[miss[2 * i + 2]][j] != "0")
+                                    {
+                                        int t = puzzleEqu[j, (options[miss[2 * i + 2]][j] == "-1" ? 0 : 2), 0] * (count + 1) + puzzleEqu[j, (options[miss[2 * i + 2]][j] == "-1" ? 0 : 2), 1];
+                                        int l = puzzleEqu[j, (options[miss[2 * i + 2]][j] == "-1" ? 1 : 3), 0] * (count++ + 1) + puzzleEqu[j, (options[miss[2 * i + 2]][j] == "-1" ? 1 : 3), 1];
+                                        <div class="@(options[miss[2 * i + 2]][j] == "-1" ? oppArr[(j + 2) % 4] : oppArr[j])" style="top:@(t)px;left:@(l)px;"></div>
+                                    }
+                                    @*if (knobClassNames[j][possIds[randIndices[i][0]][randIndices[i][1]][j] + 1] != "")
+                                    {
+                                        var x = puzzleEqu[j][possIds[randIndices[i][0]][randIndices[i][1]][j] == -1 ? 0 : 2][0] * (dirs + 1) + puzzleEqu[j][possIds[randIndices[i][0]][randIndices[i][1]][j] == -1 ? 0 : 2][1];
+                                        var y = puzzleEqu[j][possIds[randIndices[i][0]][randIndices[i][1]][j] == -1 ? 1 : 3][0] * (dirs++ + 1) + puzzleEqu[j][possIds[randIndices[i][0]][randIndices[i][1]][j] == -1 ? 1 : 3][1];
+                                    }*@
+                                }
+                            </div>
+                        </label>
+                    }
+                </div>
+            </div>
+            @*
+            <div id="partialT1" class="partial_puzzle_T" style="grid-row:@(1);"></div>
+            <div id="partialT2" class="partial_puzzle_T" style="grid-row:@(1);"></div>
+            <div id="partialT3" class="partial_puzzle_T" style="grid-row:@(1);"></div>
+            <div id="partialTR1" class="partial_puzzle_TRC" style="grid-row:@(1);"></div>
+            <div id="partialL1" class="partial_puzzle_L" style="grid-row:@(1);"></div>
+            <div id="pieceA1" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceA2" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceA3" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="partialR1" class="partial_puzzle_R" style="grid-row:@(1);"></div>
+            <div id="partialL2" class="partial_puzzle_L" style="grid-row:@(1);"></div>
+            <div id="pieceB1" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceB2" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceB3" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="partialR2" class="partial_puzzle_R" style="grid-row:@(1);"></div>
+            <div id="partialL3" class="partial_puzzle_L" style="grid-row:@(1);"></div>
+            <div id="pieceC1" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceC2" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="pieceC3" class="puzzle" style="grid-row:@(1);"></div>
+            <div id="partialR3" class="partial_puzzle_R" style="grid-row:@(1);"></div>
+            <div id="partialBL1" class="partial_puzzle_BLC" style="grid-row:@(1);"></div>
+            <div id="partialB1" class="partial_puzzle_B" style="grid-row:@(1);"></div>
+            <div id="partialB2" class="partial_puzzle_B" style="grid-row:@(1);"></div>
+            <div id="partialB3" class="partial_puzzle_B" style="grid-row:@(1);"></div>
+            <div id="partialBR1" class="partial_puzzle_BRC" style="grid-row:@(1);"></div>
+            <input type="radio" value="firstValue" name=@("q" + questionI) id=@("q" + questionI + "_1_c") style="grid-row:1 / 2;grid-column:1 / 2;margin-top:34px;"/>
+            <label for=@("q" + questionI + "_1_c") style="grid-row:1 / 2;grid-column:2 / 3;display:inline-block;"></label>
+            <input type="radio" value="secondValue" name=@("q" + questionI) id=@("q" + questionI + "_2_c") style="grid-row:2 / 3;grid-column:1 / 2;margin-top:34px;" />
+            <label for=@("q" + questionI + "_2_c") style="grid-row:2 / 3;grid-column:2 / 3;display:inline-block;"></label>
+            <input type="radio" value="thirdValue" name=@("q" + questionI) id=@("q" + questionI + "_3_c") style="grid-row:3 / 4;grid-column:1 / 2;margin-top:34px;" />
+            <label for=@("q" + questionI + "_3_c") style="grid-row:3 / 4;grid-column:2 / 3;display:inline-block;"></label>
+            <input type="radio" value="fourthValue" name=@("q" + questionI) id=@("q" + questionI + "_4_c") style="grid-row:4 / 5;grid-column:1 / 2;margin-top:34px;" />
+            <label for=@("q" + questionI + "_4_c") style="grid-row:4 / 5;grid-column:2 / 3;display:inline-block;"></label>
+            <div style="grid-column:1 / 2;grid-row:2 / 7;display:grid;grid-template-columns:50px 80px;grid-template-rows:repeat(4, 130px);"></div>
+
+            <label id="q16text" style="grid-row:1 / 2;grid-column:2 / 6;">Please picked the appropriate piece that fits into the greyed puzzle piece.</label>
+            <div style="grid-column:2 / 6;display:grid;grid-template-columns:130px 1fr 50px repeat(3,80px) 50px;grid-template-rows: 10px repeat(5,80px);">
+                <div id="partialTL1" class="partial_puzzle_TLC" style="grid-row:2 / 3;grid-column:3 / 4;">
+                    <div id="partialTL1_1K" class="right_knob" style="top:-1px;left:46px;"></div>
+                    <div id="partialTL1_2K" class="bottom_knob" style="top:24px;left:-1px;"></div>
+                </div>
+                <div id="partialT1" class="partial_puzzle_T" style="grid-row:2 / 3;grid-column:4 / 5;">
+                    <div id="partialT1_2K" class="bottom_knob" style="top:46px;left:29px;"></div>
+                </div>
+                <div id="partialT2" class="partial_puzzle_T" style="grid-row:2 / 3;grid-column:5 / 6;">
+                    <div id="partialT2_2H" class="bottom_hole" style="top:31px;left:29px;"></div>
+                    <div id="partialT2_3K" class="left_knob" style="top:-23px;left:-19px;"></div>
+                </div>
+                <div id="partialT3" class="partial_puzzle_T" style="grid-row:2 / 3;grid-column:6 / 7;">
+                    <div id="partialT3_3K" class="left_knob" style="top:-1px;left:-19px;"></div>
+                </div>
+                <div id="partialTR1" class="partial_puzzle_TRC" style="grid-row:2 / 3;grid-column:7 / 8;">
+                    <div id="partialTR1_3K" class="left_knob" style="top:-1px;left:-19px;"></div>
+                </div>
+                <div id="partialL1" class="partial_puzzle_L" style="grid-row:3 / 4;grid-column:3 / 4;">
+                    <div id="partialL1_2K" class="bottom_knob" style="top:76px;left:-1px;"></div>
+                </div>
+                <div id="pieceA1" class="puzzle" style="grid-row:3 / 4;grid-column:4 / 5;">
+                    <div id="pieceA1_1K" class="right_knob" style="top:29px;left:76px;"></div>
+                    <div id="pieceA1_3K" class="left_knob" style="top:7px;left:-19px;"></div>
+                </div>
+                <div id="pieceA2" class="missing_puzzle" style="grid-row:3 / 4;grid-column:5 / 6;"></div>
+                    <div id="pieceA3" class="puzzle" style="grid-row:3 / 4;grid-column:6 / 7;">
+                    <div id="pieceA3_0K" class="top_knob" style="top:-19px;left:29px;"></div>
+                    <div id="pieceA3_2K" class="bottom_knob" style="top:54px;left:29px;"></div>
+                    <div id="pieceA3_3K" class="left_knob" style="top:-15px;left:-19px;"></div>
+                </div>
+                <div id="partialR1" class="partial_puzzle_R" style="grid-row:3 / 4;grid-column:7 / 8;">
+                    <div id="partialR1_0K" class="top_knob" style="top:-19px;left:28px;"></div>
+                    <div id="partialR1_2K" class="bottom_knob" style="top:54px;left:28px;"></div>
+                    <div id="partialR1_3K" class="left_knob" style="top:-15px;left:-19px;"></div>
+                </div>
+                <div id="partialL2" class="partial_puzzle_L" style="grid-row:4 / 5;grid-column:3 / 4;">
+                    <div id="partialL2_1K" class="right_knob" style="top:29px;left:46px;"></div>
+                </div>
+                <div id="pieceB1" class="puzzle" style="grid-row:4 / 5;grid-column:4 / 5;">
+                    <div id="pieceB1_0K" class="top_knob" style="top:-19px;left:29px;"></div>
+                    <div id="pieceB1_1K" class="right_knob" style="top:7px;left:76px;"></div>
+                </div>
+                <div id="pieceB2" class="puzzle" style="grid-row:4 / 5;grid-column:5 / 6;">
+                    <div id="pieceB2_0K" class="top_knob" style="top:-19px;left:29px;"></div>
+                    <div id="pieceB2_2K" class="bottom_knob" style="top:54px;left:29px;"></div>
+                </div>
+                <div id="pieceB3" class="puzzle" style="grid-row:4 / 5;grid-column:6 / 7;">
+                    <div id="pieceB3_1K" class="right_knob" style="top:29px;left:76px;"></div>
+                    <div id="pieceB3_2K" class="bottom_knob" style="top:54px;left:29px;"></div>
+                    <div id="pieceB3_3K" class="left_knob" style="top:-15px;left:-19px;"></div>
+                </div>
+                <div id="partialR2" class="partial_puzzle_R" style="grid-row:4 / 5;grid-column:7 / 8;"></div>
+                    <div id="partialL3" class="partial_puzzle_L" style="grid-row:5 / 6;grid-column:3 / 4;">
+                    <div id="partialL3_0K" class="top_knob" style="top:-19px;left:-1px;"></div>
+                </div>
+                <div id="pieceC1" class="puzzle" style="grid-row:5 / 6;grid-column:4 / 5;">
+                    <div id="pieceC1_0K" class="top_knob" style="top:-19px;left:29px;"></div>
+                    <div id="pieceC1_2K" class="bottom_knob" style="top:54px;left:29px;"></div>
+                    <div id="pieceC1_3K" class="left_knob" style="top:-15px;left:-19px;"></div>
+                </div>
+                <div id="pieceC2" class="puzzle" style="grid-row:5 / 6;grid-column:5 / 6;">
+                    <div id="pieceC2_2K" class="bottom_knob" style="top:76px;left:29px;"></div>
+                    <div id="pieceC2_3K" class="left_knob" style="top:7px;left:-19px;"></div>
+                </div>
+                <div id="pieceC3" class="puzzle" style="grid-row:5 / 6;grid-column:6 / 7;">
+                    <div id="pieceC3_1K" class="right_knob" style="top:29px;left:76px;"></div>
+                    <div id="pieceC3_3K" class="left_knob" style="top:7px;left:-19px;"></div>
+                </div>
+                <div id="partialR3" class="partial_puzzle_R" style="grid-row:5 / 6;grid-column:7 / 8;">
+                    <div id="partialR3_0K" class="top_knob" style="top:-19px;left:28px;"></div>
+                </div>
+                <div id="partialBL1" class="partial_puzzle_BLC" style="grid-row:6 / 7;grid-column:3 / 4;">
+                    <div id="partialBL1_0K" class="top_knob" style="top:-19px;left:-1px;"></div>
+                    <div id="partialBL1_1K" class="right_knob" style="top:6px;left:46px;"></div>
+                </div>
+                <div id="partialB1" class="partial_puzzle_B" style="grid-row:6 / 7;grid-column:4 / 5;">
+                    <div id="partialB1_1K" class="right_knob" style="top:28px;left:76px;"></div>
+                </div>
+                <div id="partialB2" class="partial_puzzle_B" style="grid-row:6 / 7;grid-column:5 / 6;"></div>
+                    <div id="partialB3" class="partial_puzzle_B" style="grid-row:6 / 7;grid-column:6 / 7;">
+                    <div id="partialB3_0K" class="top_knob" style="top:-19px;left:29px;"></div>
+                    <div id="partialB3_3K" class="left_knob" style="top:6px;left:-19px;"></div>
+                </div>
+                <div id="partialBR1" class="partial_puzzle_BRC" style="grid-row:6 / 7;grid-column:7 / 8;">
+                    <div id="partialBR1_0K" class="top_knob" style="top:-19px;left:28px;"></div>
+                    <div id="partialBR1_3K" class="left_knob" style="top:6px;left:-19px;"></div>
+                </div>
+                <div style="grid-column:1 / 2;grid-row:2 / 7;display:grid;grid-template-columns:50px 80px;grid-template-rows:repeat(4, 130px);">
+                <input type="radio" value="firstValue" name="q16" id="q16_1_c" style="grid-row:1 / 2;grid-column:1 / 2;margin-top:34px;">
+                <label for="q16_1_c" style="grid-row:1 / 2;grid-column:2 / 3;display:inline-block;">
+                    <div id="q16_1_tA" name="q16" for="q16_1_c" class="puzzle">
+                        <div class="left_knob" style="top:29px;left:61px;"></div>
+                        <div class="bottom_knob" style="top:54px;left:29px;"></div>
+                        <div class="right_knob" style="top:-15px;left:-4px;"></div>
+                    </div>
+                </label>
+                <input type="radio" value="secondValue" name="q16" id="q16_2_c" style="grid-row:2 / 3;grid-column:1 / 2;margin-top:34px;">
+                <label for="q16_2_c" style="grid-row:2 / 3;grid-column:2 / 3;display:inline-block;">
+                    <div id="q16_2_tA" name="q16" for="q16_2_c" class="puzzle">
+                        <div class="top_knob" style="top:-19px;left:29px;"></div>
+                        <div class="bottom_knob" style="top:54px;left:29px;"></div>
+                        <div class="left_knob" style="top:-15px;left:-19px;"></div>
+                    </div>
+                </label>
+                <input type="radio" value="thirdValue" name="q16" id="q16_3_c" style="grid-row:3 / 4;grid-column:1 / 2;margin-top:34px;">
+                <label for="q16_3_c" style="grid-row:3 / 4;grid-column:2 / 3;display:inline-block;">
+                    <div id="q16_3_tA" name="q16" for="q16_3_c" class="puzzle">
+                        <div class="right_knob" style="top:29px;left:76px;"></div>
+                        <div class="bottom_knob" style="top:54px;left:29px;"></div>
+                        <div class="right_knob" style="top:-15px;left:-4px;"></div>
+                    </div>
+                </label>
+                <input type="radio" value="fourthValue" name="q16" id="q16_4_c" style="grid-row:4 / 5;grid-column:1 / 2;margin-top:34px;">
+                <label for="q16_4_c" style="grid-row:4 / 5;grid-column:2 / 3;display:inline-block;">
+                    <div id="q16_4_tA" name="q16" for="q16_4_c" class="puzzle">
+                        <div class="bottom_knob" style="top:-4px;left:29px;"></div>
+                        <div class="left_knob" style="top:7px;left:61px;"></div>
+                        <div class="top_knob" style="top:17px;left:29px;"></div>
+                        <div class="left_knob" style="top:-37px;left:-19px;"></div>
+                    </div>
+               </label>
+            </div>
+            *@
+        } else if (type >= 2 && type <= 5) {
+            <div id=@("q" + questionI + "math") style="grid-row:2 / 3;grid-column:2 / 6;display:grid;grid-template-columns:@(type == 2 ? "1fr 1fr" : (type == 3 ? "repeat(5, 30px)" : "1fr"));margin:auto;text-align:center;">
+                @if (type == 4) {
+                    <label style="grid-column:1 / 2;">@options[miss[0]][0]</label>
+                } else if (type == 5) {
+                    int index = options[miss[0]][0].LastIndexOf("\"");
+                    <label style="grid-column:1 / 2;font-weight:bold;padding-right:30px;">@options[miss[0]][0][..(index + 1)]</label>
+                    <label style="grid-column:2 / 3;font-size:20px;">@options[miss[0]][0][(index + 2)..]</label>
+                } else if (type == 3) {
+                    <label style="grid-column:1 / 2;">@options[0][miss[1]]</label>
+                    <label style="grid-column:2 / 3;">@options[2][miss[3]]</label>
+                    <label style="grid-column:3 / 4;">@options[1][miss[2]]</label>
+                    <label style="grid-column:4 / 5;">=</label>
+                    <label style="grid-column:5 / 6;">?</label>
+                }
+            </div>
+            @for (int i = 0; i < 4; i++)
+            {
+                string aspForValue = (Model.QuestionID == dummy[0]? "Request.VerifiedA" : (Model.QuestionID == dummy[2]? "Request.VerifiedB" : "Request.VerifiedC"));
+                <input type="radio" value=@miss[^(7 - 2 * i)] id=@("q" + Model.QuestionID + "_" + i + "c") asp-for=@aspForValue
+                    style="grid-row:@(i + (type == 2 ? 0 : 1) + 2) / @(i + (type == 2 ? 0 : 1) + 3);grid-column:3 / 4;" />
+                <div style="grid-row:@(i + (type == 2 ? 0 : 1) + 2) / @(i + (type == 2 ? 0 : 1) + 3);grid-column:4 / 6;">
+                    <label for=@("q" + Model.QuestionID + "_" + i + "c") style="display:inline-block;">@(type == 3 ? miss[^(8 - 2 * i)] : options[miss[0]][miss[^(8 - 2 * i)] + (type == 2 ? 0 : 1)])</label>
+                </div>
+            }
+        }
+    </div>
+    <div id="buttonInfo" style="display:grid;position:fixed;top:79%;width:100%;grid-template-rows:45px;grid-template-columns: 3fr 1fr 75px 1fr 75px 1fr 75px 1fr 1fr;">
+        @if (Model.QuestionID == 1) {
+            <input id="prevButton" type="submit" asp-page-handler="PreviousD" value="Previous" disabled="disabled" style="grid-column:2 / 3;border-radius:15px;"/>
+        } else {
+            <input id="prevButton" type="submit" asp-page-handler="PreviousD" value="Previous" style="grid-column:2 / 3;border-radius:15px;"/>
+        }
+        <input type="button" id="saveBtn" onclick="saveButton(this.id)" value="Save" style="grid-column:4 / 5;border-radius:15px;" />
+        <input type="button" id="saveExitBtn" onclick="saveButton(this.id)" style="grid-column:6 / 7;border-radius:15px;" value="Save and Exit" />
+        <input id="nextBtn" type="submit" asp-page-handler="NextD" style="grid-column:8 / 9;border-radius:15px;" value="Next" />
+    </div>
+</form>
+
+@section Scripts {
+        <script>
+        var isDropped = false;
+        var prevLoc = '';
+        var saveBtnType = "";
+        document.getElementById("ddArrow").innerText = "\u25BC";
+        var colorIs = [["rgb(176, 30, 0)", "rgb(234, 143, 131)"], ["rgb(0, 107, 100)", "rgb(174, 204, 203)"], ["rgb(28, 115, 76)", "rgb(200, 224, 171)"], ["rgb(246, 207, 87)", "rgb(255, 252, 180)"],
+            ["rgb(245, 128, 31)", "rgb(255, 187, 124)"], ["rgb(73, 15, 82)", "rgb(176, 159, 202)"], ["rgb(0, 0, 0)", "rgb(175, 175, 175)"], ["rgb(98, 60, 31)", "rgb(194, 164, 135)"],
+            ["rgb(223, 136, 183)", "rgb(231, 209, 221)"], ["rgb(59, 117, 119)", "rgb(123, 194, 188)"], ["rgb(213, 50, 25)", "rgb(255, 145, 100)"], ["rgb(84, 62, 122)", "rgb(134, 134, 175)"],
+            ["rgb(11, 168, 230)", "rgb(211, 225, 235)"], ["rgb(98, 98, 61)", "rgb(194, 194, 154)"]];
+        var randIBack = randI(0, colorIs.length);
+        document.getElementById("accPic").style.backgroundColor = colorIs[randIBack][0];
+        document.getElementById("accHead").style.backgroundColor = colorIs[randIBack][1];
+        document.getElementById("accBody").style.backgroundColor = colorIs[randIBack][1];
+        $(window).on("resize", function () {
+            resizeDetection();
+        });
+        $(window).on("load", function () {
+            //setTab();
+            resizeDetection();
+        });
+        /**function setTab() {
+            var headerValues = [8, 10, 8, 9];
+            var count = 0;
+            for (var i = 0; i < headerValues.length; i++) {
+                if (count + headerValues[i] > @(Model.QuestionID - 1)) {
+                    document.getElementById("headerProg" + (i + 1)).value = @(Model.QuestionID - 1) - count;
+                    document.getElementById("header" + (i + 1)).classList.remove("defHeaderTab");
+                    document.getElementById("header" + (i + 1)).classList.add("headerTab");
+                    document.getElementById("headerText" + (i + 1)).classList.remove("defHeaderText");
+                    document.getElementById("headerText" + (i + 1)).classList.add("headerText");
+                    document.getElementById("headerProg" + (i + 1)).style.display = "block";
+                    break;
+                }
+                document.getElementById("headerProg" + (i + 1)).value = headerValues[i];
+                document.getElementById("headerProg" + (i + 1)).style.display = "block";
+                count += headerValues[i];
+            }
+        }*/
+        </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

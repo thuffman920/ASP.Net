@@ -1,0 +1,37 @@
+﻿ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 1.15em;
+    width: 100%;
+}
+li {
+    float: left;
+    width: 1fr;
+}
+li a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: inherit;
+}
+li a:hover {
+    background-color: yellow;
+    color: purple;
+}
+.webpageHeader {
+    font-size: 1.75em;
+    align-self: center;
+    text-align: center;
+    width: 100%;
+}
+.header_container {
+    position: relative;
+    display: inline-grid;
+    grid-template-rows: 1fr 1fr;
+    background-color: purple;
+    color: yellow;
+    width: 100%;
+}

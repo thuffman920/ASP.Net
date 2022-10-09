@@ -1,0 +1,66 @@
+﻿@model SecureAJAXLogin.Models.ErrorViewModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+<form id="contactForm" novalidate>
+    <div asp-validation-summary="All"></div>
+    <input type="hidden" id="RequestVerificationToken" name="RequestVerificationToken" value=@Xsrf.GetAndStoreTokens(Context).RequestToken />
+    <div class="form-group">
+        <label asp-for="Name" required></label>
+        <input asp-for="Name" autofocus class="form-control" name="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" name="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Message"></label>
+        <input asp-for="Message" class="form-control" name="Message" />
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary">
+        <span id="contactSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display:none;"></span>
+        Send message
+    </button>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("#contactForm").submit(function(event) {
+            $("#contactSpinner").show();
+            event.preventDefault();
+            if ($("#contactForm").validate()) {
+                var token = $("#RequestVerificationToken").val();
+                var name = $("#Name").val();
+                var email = $("#Email").val();
+                var message = $("#Message").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SubmitContactForm", "Home")',
+                    headers: { 'RequestVerificationToken': token},
+                    data: {
+                        token: token,
+                        name: name,
+                        email: email,
+                        message: message
+                    },
+                    success: function (result, status, message) {
+                        if (result.success) {
+
+                        } else {
+
+                        }
+                    },
+                    error: function (error, type) {
+
+                    },
+                    complete: function () {
+                        $("#contactSpinner").hide();
+                    }
+                });
+            }
+        });
+    </script>
+}
